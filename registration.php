@@ -47,6 +47,11 @@
             if (!ctype_alnum($userName)) {
                 $userNameErr = "Only letters and numbers allowed";
                 $isValidInfo = FALSE;
+            }else{
+                if ($user->checkUserNameExist($userName)) {
+                    $userNameErr = "Username already used";
+                    $isValidInfo = FALSE;
+                }
             }
         }
 
@@ -59,6 +64,11 @@
             if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
                 $emailErr = "Invalid email format";
                 $isValidInfo = FALSE;
+            } else {
+                if ($user->checkEmailExist($email)) {
+                    $emailErr = "Email already used";
+                    $isValidInfo = FALSE;
+                }
             }
         }
         if (empty($password) || empty($rePassword)) {
@@ -74,8 +84,7 @@
             $isValidInfo = FALSE;
         }
         if ($isValidInfo == TRUE) {
-            //if($user->checkEmailExist($email)){
-            // $user->register($userName, $fullName, $email, $password);
+            $user->register($userName, $fullName, $email, $password);
             header("Location:index.php");
         }
     }
@@ -85,14 +94,14 @@
         <h1>রেজিস্ট্রেশন</h1>
         <form method="post" action='<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>'>
             <input type="text" name="fullName" placeholder="ফুলনেম" required="required" />
-            <?php echo "$nameErr"; ?>
+            <b><?php echo "$nameErr"; ?></b>
             <input type="text" name="userName" placeholder="ইউজার নেম" required="required" />
-            <?php echo "$userNameErr"; ?>
+            <b><?php echo "$userNameErr"; ?></b>
             <input type="text" name="email" placeholder="ই মেইল" required="required" />
-            <?php echo "$emailErr"; ?>
+            <b><?php echo "$emailErr"; ?></b>
             <input type="password" name="password" placeholder="পাসওয়ার্ড" required="required" />
             <input type="password" name="rePassword" placeholder="কনফার্ম পাসওয়ার্ড" required="required" />
-            <?php echo "$passwordErr"; ?>
+            <b><?php echo "$passwordErr"; ?></b>
             <input type="submit" class="signupbutton" value="সাবমিট" />
         </form>
         <a href="index.php">Home Page</a>

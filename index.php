@@ -11,7 +11,7 @@ and open the template in the editor.
     </head>
     <body>
         <?php
-        echo "Your registration is done";
+        echo "Your successful";
         ?>
     </body>
 </html>
