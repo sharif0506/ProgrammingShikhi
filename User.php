@@ -59,7 +59,7 @@ class User {
             mysqli_free_result($result);
         }
         $dbConnection->close();
-        return $emailExist;
+        return $userNameExist;
     }
 
     function logIn($email, $password) {

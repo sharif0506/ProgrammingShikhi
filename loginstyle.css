@@ -7,6 +7,11 @@ body {
 /*    background-image:url("image");*/
 
 }
+.header {
+    padding: 1.0121457489878542510121457489879%;
+    background-color: #cdebf4;
+    border: px solid #e9e9e9;
+}
 
 .login { 
     position: absolute;
