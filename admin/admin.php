@@ -26,6 +26,17 @@ class Admin {
         $dbConnection->close();
         return $userExist;
     }
+    
+    function createNewTutorial($newTutorialLanguage){
+        $connection = $this->getConnection();
+        $sql = "INSERT INTO tutorial VALUES ('','$newTutorialLanguage')";
+        if ($connection->query($sql) == TRUE) {
+            
+        } else {
+            echo "Error: " . $connection->error;
+        }
+        $connection->close();
+    }
 
     function addContent($fileName, $pageHeading, $content, $lastModified, $language) {
         $connection = $this->getConnection();

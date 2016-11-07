@@ -8,8 +8,8 @@ $admin = new Admin();
 $errorMsg = "";
 $newLanguage = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//    $pageName = $_POST['pageName'];
-//    $fileExist = $admin->checkFileNameExist($pageName);
+      $pageName = $_POST['newLanguageName'];
+ //     $fileExist = $admin->checkFileNameExist($pageName);
 //    if($fileExist){
 //        $errorMsg = "Page name already exist.";
 //    }else{
