@@ -22,6 +22,7 @@
                 </div>
                 <div class="gridbox gridmenu">
                     <div class="menuitem">
+                        <a href="homepage.php"><div class='menuitem'>হোম </div></a>
                         <a href="profile.php"><div class='menuitem'>ইউজার প্রোফাইল</div></a>
                         <a href="logout.php">   <div class='menuitem'>লগআউট</div></a>
                     </div>
@@ -30,7 +31,7 @@
                     <div class="main">
                         <div class="login">
                             <h1>Welcome to programming sikhi</h1>
-                            
+                            <a href="Content/c_intro.php">C programming Tutorial</a>
                             <br /><br /><br /><br /><br />
                         </div>
                     </div>

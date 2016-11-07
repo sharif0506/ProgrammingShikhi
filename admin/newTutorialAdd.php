@@ -1,19 +1,33 @@
-
+<?php
+session_start();
+if (!isset($_SESSION["admin"])) {
+    header("location:index.php");
+}
+require 'admin.php';
+$admin = new Admin();
+$errorMsg = "";
+$newLanguage = "";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//    $pageName = $_POST['pageName'];
+//    $fileExist = $admin->checkFileNameExist($pageName);
+//    if($fileExist){
+//        $errorMsg = "Page name already exist.";
+//    }else{
+//        $admin->addContent($pageName, $pageHeading, $content, $language, $lastModified);
+//    }
+    
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
         <title></title>
-        
+
     </head>
     <body>
-        <?php
-        session_start();
-        if (!isset($_SESSION["admin"])) {
-            header("location:index.php");
-        }
-        ?>
+
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
@@ -32,10 +46,10 @@
                         <ul>
                             <li class="menuitem"><a href="newTutorialAdd.php">কন্টেন্ট আপডেট </a></li>
                             <li class="menuitem"><a  href="addContent.php">কন্টেন্ট তৈরি</a></li>
-                            
+
                             <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>
-                            
-                            
+
+
                         </ul>
                     </div>
 
@@ -43,11 +57,14 @@
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1></h1>
-                            <p>Current user :</p>
-                            <p>Total content :</p>
-                            <p>Total question :</p>
-                            <p>Total answer :</p>
+                            <h1>New Programming Language Tutorial Add</h1>
+                            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                <input type="text" name="newLanguageName" placeholder="New Programming Language Name" required />
+                                <br />
+                                <p id="errMsg"><b><?php echo $errorMsg?></b></p>
+                                <input type="submit" class="loginButton" value="সাবমিট">
+                            </form> 
+
 
                         </div>
                     </div>

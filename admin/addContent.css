@@ -3,7 +3,9 @@ body {
     
 }
 
-
+#errMsg{
+    color: red;
+}
 
 h1{
     font-size: 1.625em;

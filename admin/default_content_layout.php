@@ -30,6 +30,7 @@
                 </div>
                 <div class="gridbox gridmenu">
                     <div class="menuitem">
+                        <a href="homepage.php"><div class='menuitem'>হোম </div></a>
                         <a  href="#"><div class='menuitem'>  প্রোফাইল</div></a>
                         <a href="logout.php">   <div class='menuitem'>লগ আউট</div></a>
                     </div>

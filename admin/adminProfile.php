@@ -28,6 +28,7 @@ $adminInformation = $admin->getAdminInfo($email);
                 </div>
                 <div class="gridbox gridmenu">
                     <div class="menuitem">
+                        <a href="adminPanel.php"><div class='menuitem'>অ্যাডমিন প্যানেল</div></a>
                         <a  href="adminProfile.php"><div class='menuitem'>অ্যাডমিন  প্রোফাইল</div></a>
                         <a href="logout.php">   <div class='menuitem'>লগ আউট</div></a>
                     </div>

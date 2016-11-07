@@ -100,7 +100,7 @@ class Admin {
         return $pageHeadings;
     }
 
-    function getAdminInfo($email){
+    function getAdminInfo($email) {
         $adminInfo;
         $connection = $this->getConnection();
         $sql = "SELECT * FROM admin WHERE Email = '$email'";
@@ -108,7 +108,7 @@ class Admin {
         if ($result = $x) {
             $numberOfRows = mysqli_num_rows($result);
             if ($numberOfRows > 0) {
-                
+
                 while ($row = $result->fetch_assoc()) {
                     $adminInfo[0] = $row["UserName"];
                     $adminInfo[1] = $row["FullName"];
@@ -120,6 +120,32 @@ class Admin {
         }
         return $adminInfo;
     }
-    
-    
+
+    function checkFileNameExist($fileName) {
+        $fileExist = FALSE;
+        $result = NULL;
+        $fileName = $fileName.".php";
+        $dbConnection = $this->getConnection();
+        $query = "SELECT * FROM content WHERE PageName = '$fileName' ";
+
+        $x = $dbConnection->query($query);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $fileExist = TRUE;
+            }
+            mysqli_free_result($result);
+        }
+        $dbConnection->close();
+        return $fileExist;
+    }
+
+    function updateFullName() {
+        
+    }
+
+    function updatePassword() {
+        
+    }
+
 }

@@ -5,13 +5,22 @@ if (!isset($_SESSION["admin"])) {
 }
 require 'admin.php';
 $admin = new Admin();
+$errorMsg = "";
+$pageName = $pageHeading = $content = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pageName = $_POST['pageName'];
     $pageHeading = $_POST['pageHeading'];
     $content = $_POST['textarea'];
     $lastModified = "";
     $language = "";
-    $admin->addContent($pageName, $pageHeading, $content, $language, $lastModified);
+    $fileExist = TRUE;
+    $fileExist = $admin->checkFileNameExist($pageName);
+    if($fileExist){
+        $errorMsg = "Page name already exist.";
+    }else{
+        $admin->addContent($pageName, $pageHeading, $content, $language, $lastModified);
+    }
+    
 }
 ?>
 <!DOCTYPE html>
@@ -41,7 +50,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
                 <div class="gridbox gridmenu">
                     <div class="menuitem">
-                        <a  href="#"><div class='menuitem'>অ্যাডমিন  প্রোফাইল</div></a>
+                        <a href="adminPanel.php"><div class='menuitem'>অ্যাডমিন প্যানেল</div></a>
+                        <a  href="adminProfile.php"><div class='menuitem'>অ্যাডমিন  প্রোফাইল</div></a>
                         <a href="logout.php">   <div class='menuitem'>লগ আউট</div></a>
                     </div>
                     <div class="menuitem">     
@@ -61,8 +71,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <h1>কন্টেন্ট তৈরি</h1>
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                 <input type="text" name="pageName" placeholder="page name" required />
+                                <br />
+                                <p id="errMsg"><b><?php echo $errorMsg?></b></p>
                                 <input type="text" name="pageHeading" placeholder="page heading" required />
-                                <textarea name="textarea" rows="20"  ></textarea>
+                                <textarea name="textarea" rows="20" ></textarea>
                                 <input type="submit" class="loginButton" value="সাবমিট">
                             </form>                           
 
