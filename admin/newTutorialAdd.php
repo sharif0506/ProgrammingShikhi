@@ -6,16 +6,16 @@ if (!isset($_SESSION["admin"])) {
 require 'admin.php';
 $admin = new Admin();
 $errorMsg = "";
-$newLanguage = "";
+$newTutorialLanguage = "";
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-      $pageName = $_POST['newLanguageName'];
- //     $fileExist = $admin->checkFileNameExist($pageName);
-//    if($fileExist){
-//        $errorMsg = "Page name already exist.";
-//    }else{
-//        $admin->addContent($pageName, $pageHeading, $content, $language, $lastModified);
-//    }
-    
+    $newTutorialLanguage = $_POST['newLanguageName'];
+    $tutorialExist = $admin->checkTutorialExist($newTutorialLanguage);
+
+    if ( $tutorialExist == TRUE ) {
+        $errorMsg = "This tutorial already exist";
+    } else {
+        $admin->createNewTutorial($newTutorialLanguage);
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -61,10 +61,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                 <input type="text" name="newLanguageName" placeholder="New Programming Language Name" required />
                                 <br />
-                                <p id="errMsg"><b><?php echo $errorMsg?></b></p>
+                                <p id="errMsg"><b style="color: red;"><?php echo $errorMsg ?></b></p>
                                 <input type="submit" class="loginButton" value="সাবমিট">
                             </form> 
-                            
+
                         </div>
                     </div>
                 </div>

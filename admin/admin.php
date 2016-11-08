@@ -27,14 +27,26 @@ class Admin {
         return $userExist;
     }
 
+    function makeDirectory($path, $directoryName) {
+        chdir($path);
+        mkdir($directoryName);
+    }
+
     function createNewTutorial($newTutorialLanguage) {
-        $path = "../Content/" . $newTutorialLanguage;
+        $path = "../content";
         $source = "default_content_layout.css";
-        $destination = "$path";
         $connection = $this->getConnection();
         $sql = "INSERT INTO tutorial VALUES ('','$newTutorialLanguage')";
         if ($connection->query($sql) == TRUE) {
-            mkdir($path);
+            $directory = $newTutorialLanguage;
+            mkdir("$path/" . $newTutorialLanguage);
+            $path = $path . "/" . $directory;
+            
+            $fileName = "default_content_layout.css";
+            $input = file_get_contents($fileName);
+            $openedFile = fopen("../content/$directory/$fileName", 'w');
+            fwrite($openedFile, $input);
+            fclose($openedFile);
         } else {
             echo "Error: " . $connection->error;
         }
@@ -50,7 +62,7 @@ class Admin {
         $sql = "INSERT INTO content VALUES ('','$fileName','$pageHeading','$content', '$language','$lastModified')";
         if ($connection->query($sql) == TRUE) {
             $input = file_get_contents("default_content_layout.php");
-            $openedFile = fopen("../Content/$fileName", 'w');
+            $openedFile = fopen("../content/$language/$fileName", 'w');
             fwrite($openedFile, $input);
             fclose($openedFile);
         } else {
@@ -154,6 +166,21 @@ class Admin {
         return $fileExist;
     }
 
+    function  checkTutorialExist($nameOfLanguage){
+        $tutorialExist = TRUE;
+        $connection = $this->getConnection();
+        $sql = "SELECT NameOfProgrammingLanguage FROM tutorial WHERE NameOfProgrammingLanguage='$nameOfLanguage'";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows == 0) {
+                    $tutorialExist = FALSE;
+            }
+            mysqli_free_result($result);
+        }
+        return $tutorialExist;
+    }
+            
     function updateFullName() {
         
     }
