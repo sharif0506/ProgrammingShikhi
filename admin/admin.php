@@ -26,12 +26,15 @@ class Admin {
         $dbConnection->close();
         return $userExist;
     }
-    
-    function createNewTutorial($newTutorialLanguage){
+
+    function createNewTutorial($newTutorialLanguage) {
+        $path = "../Content/" . $newTutorialLanguage;
+        $source = "default_content_layout.css";
+        $destination = "$path";
         $connection = $this->getConnection();
         $sql = "INSERT INTO tutorial VALUES ('','$newTutorialLanguage')";
         if ($connection->query($sql) == TRUE) {
-            
+            mkdir($path);
         } else {
             echo "Error: " . $connection->error;
         }
@@ -135,7 +138,7 @@ class Admin {
     function checkFileNameExist($fileName) {
         $fileExist = FALSE;
         $result = NULL;
-        $fileName = $fileName.".php";
+        $fileName = $fileName . ".php";
         $dbConnection = $this->getConnection();
         $query = "SELECT * FROM content WHERE PageName = '$fileName' ";
 

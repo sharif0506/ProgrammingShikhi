@@ -57,15 +57,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>New Programming Language Tutorial Add</h1>
+                            <h1>Add New Programming Language  </h1>
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                 <input type="text" name="newLanguageName" placeholder="New Programming Language Name" required />
                                 <br />
                                 <p id="errMsg"><b><?php echo $errorMsg?></b></p>
                                 <input type="submit" class="loginButton" value="সাবমিট">
                             </form> 
-
-
+                            
                         </div>
                     </div>
                 </div>
