@@ -181,6 +181,25 @@ class Admin {
         return $tutorialExist;
     }
             
+    function getAllNameOfProgrammingLanguage(){
+        $languages;
+        $connection = $this->getConnection();
+        $sql = "SELECT NameOfProgrammingLanguage FROM tutorial";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $languages[$i] = $row["NameOfProgrammingLanguage"];
+                    $i++;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $languages;
+        
+    }
     function updateFullName() {
         
     }

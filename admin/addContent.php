@@ -7,6 +7,7 @@ require 'admin.php';
 $admin = new Admin();
 $errorMsg = "";
 $pageName = $pageHeading = $content = "";
+$languages = $admin->getAllNameOfProgrammingLanguage();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pageName = $_POST['pageName'];
     $pageHeading = $_POST['pageHeading'];
@@ -15,12 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $language = "";
     $fileExist = TRUE;
     $fileExist = $admin->checkFileNameExist($pageName);
-    if($fileExist){
+    if ($fileExist) {
         $errorMsg = "Page name already exist.";
-    }else{
+    } else {
         $admin->addContent($pageName, $pageHeading, $content, $language, $lastModified);
     }
-    
 }
 ?>
 <!DOCTYPE html>
@@ -72,8 +72,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                 <input type="text" name="pageName" placeholder="page name" required />
                                 <br />
-                                <p id="errMsg"><b><?php echo $errorMsg?></b></p>
+                                <p id="errMsg"><b><?php echo $errorMsg ?></b></p>
                                 <input type="text" name="pageHeading" placeholder="page heading" required />
+                                <p> <select style="width: 64%; height: 40px; font-size: 18px; text-align: center">
+                                        <?php
+                                        for ($i = 0; $i < sizeof($languages); $i++) {
+                                            echo "<option value='$languages[$i]'>$languages[$i]</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </p>
                                 <textarea name="textarea" rows="20" ></textarea>
                                 <input type="submit" class="loginButton" value="সাবমিট">
                             </form>                           
