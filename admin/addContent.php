@@ -35,7 +35,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             }
             );
         </script>
-        <title>অ্যাডমিন প্যানেল</title>
+        <title>নতুন কন্টেন্ট সংযোজন</title>
 
     </head>
     <body>
@@ -45,7 +45,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="gridbox gridheader">
                     <div class="header">
                         <h1>প্রোগ্রামিং শিখি</h1>
-                        <h3>অ্যাডমিন প্যানেল</h3>
+                        <h3>অ্যাডমিন প্যানেল </h3>
                     </div>
                 </div>
                 <div class="gridbox gridmenu">
@@ -56,9 +56,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="menuitem">     
                         <ul>
-                            <li class="menuitem"><a  href="addContent.php">কন্টেন্ট তৈরি</a></li>
-                            <li class="menuitem"><a href="#">কন্টেন্ট আপডেট </a></li>
-                            <li class="menuitem"><a href="#">কন্টেন্ট ডিলিট </a></li>
+                            <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </a></li>
+                            <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন </a></li>
+
+<!--                            <li class="menuitem"><a href="#">কন্টেন্ট ডিলিট </a></li>-->
 
 
                         </ul>
@@ -68,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>কন্টেন্ট তৈরি</h1>
+                            <h1>নতুন কন্টেন্ট সংযোজন </h1>
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                 <input type="text" name="pageName" placeholder="page name" required />
                                 <br />

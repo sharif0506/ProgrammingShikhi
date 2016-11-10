@@ -14,7 +14,6 @@ class Admin {
         $result = NULL;
         $dbConnection = $this->getConnection();
         $query = "SELECT * FROM admin WHERE Email = '$email' AND Password = '$password'";
-
         $x = $dbConnection->query($query);
         if ($result = $x) {
             $numberOfRows = mysqli_num_rows($result);
@@ -107,10 +106,10 @@ class Admin {
         return $content;
     }
 
-    function getAllPageHeading() {
+    function getAllPageHeading($language) {
         $pageHeadings;
         $connection = $this->getConnection();
-        $sql = "SELECT PageHeading FROM content";
+        $sql = "SELECT PageHeading FROM content WHERE Language = '$language' ";
         $x = $connection->query($sql);
         if ($result = $x) {
             $numberOfRows = mysqli_num_rows($result);
@@ -126,6 +125,25 @@ class Admin {
         return $pageHeadings;
     }
 
+    function getAllPageName($language){
+        $pageNames;
+        $connection = $this->getConnection();
+        $sql = "SELECT PageName FROM content WHERE Language = '$language' ";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $pageNames[$i] = $row["PageName"];
+                    $i++;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $pageNames;
+    }
+    
     function getAdminInfo($email) {
         $adminInfo;
         $connection = $this->getConnection();
@@ -184,7 +202,7 @@ class Admin {
     function getAllNameOfProgrammingLanguage(){
         $languages;
         $connection = $this->getConnection();
-        $sql = "SELECT NameOfProgrammingLanguage FROM tutorial";
+        $sql = "SELECT NameOfProgrammingLanguage FROM tutorial ";
         $x = $connection->query($sql);
         if ($result = $x) {
             $numberOfRows = mysqli_num_rows($result);
@@ -200,6 +218,7 @@ class Admin {
         return $languages;
         
     }
+    
     function updateFullName() {
         
     }

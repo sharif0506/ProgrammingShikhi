@@ -3,7 +3,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="homepage.css" type="text/css" rel="stylesheet" />
-        <title>লগ ইন</title>
+        <title>প্রোগ্রামিং শিখি</title>
     </head>
     <body>
         <?php
@@ -17,7 +17,7 @@
                 <div class="gridbox gridheader">
                     <div class="header">
                         <h1>প্রোগ্রামিং শিখি</h1>
-                        <h3></h3>
+                        <h3>হোম পেজ </h3>
                     </div>
                 </div>
                 <div class="gridbox gridmenu">
@@ -31,8 +31,18 @@
                     <div class="main">
                         <div class="login">
                             <h1>Welcome to programming sikhi</h1>
-                            <a href="Content/c_intro.php">C programming Tutorial</a>
-                            <br /><br /><br /><br /><br />
+                            <br />
+                            <p><a href="Content/c/">C programming Tutorial</a></p>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            
+                            
                         </div>
                     </div>
                 </div>

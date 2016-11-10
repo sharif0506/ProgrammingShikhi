@@ -4,7 +4,7 @@
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
-        <title></title>
+        <title>অ্যাডমিন প্যানেল</title>
         
     </head>
     <body>
@@ -30,10 +30,10 @@
                     </div>
                     <div class="menuitem">     
                         <ul>
-                            <li class="menuitem"><a href="newTutorialAdd.php">কন্টেন্ট আপডেট </a></li>
-                            <li class="menuitem"><a  href="addContent.php">কন্টেন্ট তৈরি</a></li>
+                            <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
+                            <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             
-                            <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>
+<!--                            <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>-->
                             
                             
                         </ul>

@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
-        <title></title>
+        <title>নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</title>
 
     </head>
     <body>
@@ -44,10 +44,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="menuitem">     
                         <ul>
-                            <li class="menuitem"><a href="newTutorialAdd.php">কন্টেন্ট আপডেট </a></li>
-                            <li class="menuitem"><a  href="addContent.php">কন্টেন্ট তৈরি</a></li>
+                            <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </a></li>
+                            <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন </a></li>
 
-                            <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>
+<!--                            <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>-->
 
 
                         </ul>
@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>Add New Programming Language  </h1>
+                            <h2>নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </h2>
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                 <input type="text" name="newLanguageName" placeholder="New Programming Language Name" required />
                                 <br />

@@ -11,7 +11,7 @@
         $content = $admin->getContent($fileName);
         $language = basename(dirname($_SERVER['PHP_SELF']));
         $pageHeadings = $admin->getAllPageHeading($language);
-        $pageNames = $admin->getAllPageName($language);  
+        $pageNames = $admin->getAllPageName($language);
         ?>
 <!DOCTYPE html>
 <html>
@@ -34,7 +34,7 @@
                 <div class="gridbox gridmenu">
                     <div class="menuitem">
                         <a href="../../homepage.php"><div class='menuitem'>হোম </div></a>
-                        <a  href="../../profile.php"><div class='menuitem'>প্রোফাইল</div></a>
+                        <a  href="../../profile.php"><div class='menuitem'>  প্রোফাইল</div></a>
                         <a href="../../logout.php">   <div class='menuitem'>লগ আউট</div></a>
                     </div>
                     <div class="menuitem">     
@@ -42,7 +42,7 @@
                             <?php 
                             
                             for ($i = 0; $i<sizeof($pageHeadings); $i++){
-                                echo "<li class='menuitem'><a href=".$pageNames[$i].">$pageHeadings[$i]</a></li>";
+                                 echo "<li class='menuitem'><a href=".$pageNames[$i].">$pageHeadings[$i]</a></li>";
                             }
                             ?>        
                         </ul>
