@@ -4,22 +4,23 @@ if (!isset($_SESSION["admin"])) {
     header("location:index.php");
 }
 require 'admin.php';
-$admin = new Admin();
+$user = new Admin();
 $errorMsg = "";
 $pageName = $pageHeading = $content = "";
-$languages = $admin->getAllNameOfProgrammingLanguage();
+$languages = $user->getAllNameOfProgrammingLanguage();
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pageName = $_POST['pageName'];
     $pageHeading = $_POST['pageHeading'];
     $content = $_POST['textarea'];
+    $language = $_POST['language'];
     $lastModified = "";
-    $language = "";
+    
     $fileExist = TRUE;
-    $fileExist = $admin->checkFileNameExist($pageName);
+    $fileExist = $user->checkFileNameExist($pageName);
     if ($fileExist) {
         $errorMsg = "Page name already exist.";
     } else {
-        $admin->addContent($pageName, $pageHeading, $content, $language, $lastModified);
+        $user->addContent($pageName, $pageHeading, $content, $language, $lastModified);
     }
 }
 ?>
@@ -59,9 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন </a></li>
 
-<!--                            <li class="menuitem"><a href="#">কন্টেন্ট ডিলিট </a></li>-->
-
-
                         </ul>
                     </div>
 
@@ -75,7 +73,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <br />
                                 <p id="errMsg"><b><?php echo $errorMsg ?></b></p>
                                 <input type="text" name="pageHeading" placeholder="page heading" required />
-                                <p> <select style="width: 64%; height: 40px; font-size: 18px; text-align: center">
+                                <p> <select name="language" style="width: 64%; height: 40px; font-size: 18px; text-align: center">
                                         <?php
                                         for ($i = 0; $i < sizeof($languages); $i++) {
                                             echo "<option value='$languages[$i]'>$languages[$i]</option>";

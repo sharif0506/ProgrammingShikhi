@@ -1,3 +1,49 @@
+<?php
+session_start();
+if (isset($_SESSION['user'])) {
+    header("location:homepage.php");
+}
+require 'User.php';
+$user = new User();
+
+$errorMsg = "";
+$isValidInfo = TRUE;
+$email = "";
+function validate_Information($input) {
+    $input = trim($input);
+    $input = stripslashes($input);
+    $input = htmlspecialchars($input);
+    return $input;
+}
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+
+    $email = $_POST['email'];
+    $password = md5($_POST['password']);
+
+    if (empty($email)) {
+        $errorMsg = "Email is required";
+        $isValidInfo = FALSE;
+    } else {
+        $email = validate_Information($email);
+    }
+
+    if (empty($password)) {
+        $errorMsg = "Password is required";
+        $isValidInfo = FALSE;
+    }
+
+    if ($isValidInfo == TRUE) {
+        $userExist = $user->logIn($email, $password);
+        if ($userExist) {
+            $_SESSION["user"] = $email;
+            header("Location:homepage.php");
+        } else {
+            $errorMsg = "Wrong email or password";
+        }
+    }
+}
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,52 +52,7 @@
         <title>লগ ইন</title>
     </head>
     <body>
-        <?php
-        session_start();
-        if (isset($_SESSION['user'])){
-            header("location:homepage.php");
-        }
-        require 'User.php';
-        $user = new User();
 
-        $errorMsg = "";
-        $isValidInfo = TRUE;
-
-        function validate_Information($input) {
-            $input = trim($input);
-            $input = stripslashes($input);
-            $input = htmlspecialchars($input);
-            return $input;
-        }
-
-        if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
-            $email = $_POST['email'];
-            $password = md5($_POST['password']);
-
-            if (empty($email)) {
-                $errorMsg = "Email is required";
-                $isValidInfo = FALSE;
-            } else {
-                $email = validate_Information($email);
-            }
-
-            if (empty($password)) {
-                $errorMsg = "Password is required";
-                $isValidInfo = FALSE;
-            }
-
-            if ($isValidInfo == TRUE) {
-                $userExist = $user->logIn($email, $password);
-                if ($userExist) {
-                    $_SESSION["user"]= $email;
-                    header("Location:homepage.php");
-                } else {
-                    $errorMsg = "Wrong email or password";
-                }
-            }
-        }
-        ?>
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
@@ -61,7 +62,7 @@
                     </div>
                 </div>
                 <div class="gridbox gridmenu">
-                     <div class="menuitem">
+                    <div class="menuitem">
                         <a href="index.php"><div class='menuitem'>লগ ইন</div></a>
                         <a href="registration.php">   <div class='menuitem'>রেজিস্ট্রেশন</div></a>
                     </div>
@@ -71,7 +72,7 @@
                         <div class="login">
                             <h1>লগ ইন</h1>
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                                <input type="text" name="email" placeholder="ই মেইল" required="required" />
+                                <input type="text" name="email" value="<?php echo "$email";?>" placeholder="ই মেইল" required="required" />
                                 <br />
                                 <input type="password" name="password" placeholder="পাসওয়ার্ড" required="required" />
                                 <br />

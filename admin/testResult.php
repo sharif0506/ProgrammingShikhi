@@ -6,6 +6,8 @@
 //$pageHeading = $admin->getPageHeading($fileName);
 //echo $pageHeading;
 require './admin.php';
-$admin = new Admin();
-$newTutorialLanguage = "c";
-$admin->createNewTutorial($newTutorialLanguage);
+$user = new Admin();
+
+//$admin->updateFullName($name, $email);
+$email = $_SESSION['admin'];
+echo $email;

@@ -1,3 +1,12 @@
+<?php
+require './User.php';
+session_start();
+if (!isset($_SESSION["user"])) {
+    header("location:index.php");
+}
+$user = new User();
+$languages = $user->getAllLanguage();
+?>
 <!DOCTYPE html>
 <html>
     <head>
@@ -6,12 +15,6 @@
         <title>প্রোগ্রামিং শিখি</title>
     </head>
     <body>
-        <?php
-        session_start();
-        if (!isset($_SESSION["user"])) {
-            header("location:index.php");
-        }
-        ?>
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
@@ -24,6 +27,7 @@
                     <div class="menuitem">
                         <a href="homepage.php"><div class='menuitem'>হোম </div></a>
                         <a href="profile.php"><div class='menuitem'>ইউজার প্রোফাইল</div></a>
+                        <a href="forum/index.php"><div class='menuitem'>ফোরাম</div></a>
                         <a href="logout.php">   <div class='menuitem'>লগআউট</div></a>
                     </div>
                 </div>
@@ -32,17 +36,23 @@
                         <div class="login">
                             <h1>Welcome to programming sikhi</h1>
                             <br />
-                            <p><a href="Content/c/">C programming Tutorial</a></p>
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
+                            <?php
+                            for ($i = 0; $i < sizeof($languages); $i++) {
+                                echo "<p><a href=content/" . $languages[$i] . "/".">Start Learning $languages[$i]</a></p>";
+                                
+                                }
+                            ?>
                             
-                            
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+
+
                         </div>
                     </div>
                 </div>

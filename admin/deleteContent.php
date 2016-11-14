@@ -1,33 +1,18 @@
-<?php
-session_start();
-if (!isset($_SESSION["admin"])) {
-    header("location:index.php");
-}
-require 'admin.php';
-$user = new Admin();
-$errorMsg = "";
-$newTutorialLanguage = "";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $newTutorialLanguage = $_POST['newLanguageName'];
-    $tutorialExist = $user->checkTutorialExist($newTutorialLanguage);
-
-    if ( $tutorialExist == TRUE ) {
-        $errorMsg = "This tutorial already exist";
-    } else {
-        $user->createNewTutorial($newTutorialLanguage);
-    }
-}
-?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
-        <title>নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</title>
-
+        <title>অ্যাডমিন প্যানেল</title>
+        
     </head>
     <body>
-
+        <?php
+        session_start();
+        if (!isset($_SESSION["admin"])) {
+            header("location:index.php");
+        }
+        ?>
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
@@ -44,12 +29,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="menuitem">     
                         <ul>
-                            <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </a></li>
-                            <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন </a></li>
-
+                            <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
+                            <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
+                             <li class="menuitem"><a  href="editContent.php">Edit Content</a></li>
+                             <li class="menuitem"><a  href="deleteContent.php">Delete Content</a></li>
+                            
 <!--                            <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>-->
-
-
+                            
+                            
                         </ul>
                     </div>
 
@@ -57,14 +44,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h2>নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </h2>
-                            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                                <input type="text" name="newLanguageName" placeholder="New Programming Language Name" required />
-                                <br />
-                                <p id="errMsg"><b style="color: red;"><?php echo $errorMsg ?></b></p>
-                                <input type="submit" class="loginButton" value="সাবমিট">
-                            </form> 
-
+                            <h1>Delete Content</h1>
+                           
                         </div>
                     </div>
                 </div>

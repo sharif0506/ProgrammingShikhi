@@ -1,20 +1,21 @@
 <?php
+require 'admin.php';
+$user = new Admin();
 session_start();
 if (!isset($_SESSION["admin"])) {
     header("location:index.php");
 }
-require 'admin.php';
-$user = new Admin();
-$errorMsg = "";
-$newTutorialLanguage = "";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $newTutorialLanguage = $_POST['newLanguageName'];
-    $tutorialExist = $user->checkTutorialExist($newTutorialLanguage);
+$email = $_SESSION["admin"];
 
-    if ( $tutorialExist == TRUE ) {
-        $errorMsg = "This tutorial already exist";
+$adminInformation = $user->getAdminInfo($email);
+$errorMsg = "";
+$fullName = "";
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $fullName = $_POST['fullName'];
+    if (isset($fullName)) {
+        $user->updateFullName($fullName, $email);
     } else {
-        $user->createNewTutorial($newTutorialLanguage);
+        $errorMsg = "Error in updating UserName";
     }
 }
 ?>
@@ -23,7 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
-        <title>নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</title>
+        <title>আপডেট ইনফরমেশন</title>
 
     </head>
     <body>
@@ -32,7 +33,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
                     <div class="header">
-                        <h1>প্রোগ্রামিং শিখি</h1>
+                        <h1>প্রোগ্রামিংশিখি</h1>
                         <h3>অ্যাডমিন প্যানেল</h3>
                     </div>
                 </div>
@@ -46,10 +47,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <ul>
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন </a></li>
-
-<!--                            <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>-->
-
-
                         </ul>
                     </div>
 
@@ -57,14 +54,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h2>নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </h2>
-                            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                                <input type="text" name="newLanguageName" placeholder="New Programming Language Name" required />
-                                <br />
-                                <p id="errMsg"><b style="color: red;"><?php echo $errorMsg ?></b></p>
-                                <input type="submit" class="loginButton" value="সাবমিট">
-                            </form> 
 
+                            <h1>আপডেট ইনফরমেশন</h1>
+                            
+                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                <p> <b>  ফুল  নেম :</b></p>
+                                <input type="text" name="fullName" value="<?php echo $adminInformation[1]; ?>" placeholder="ফুল  নেম " required />
+                                <br />
+                                <b style="color: red"><?php echo $errorMsg; ?></b>
+                                <input type="submit" class="loginButton" value="সাবমিট">
+
+                            </form>
+                            
                         </div>
                     </div>
                 </div>

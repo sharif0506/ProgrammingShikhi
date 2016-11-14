@@ -1,18 +1,10 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link href="index.css" type="text/css" rel="stylesheet" />
-        <title>অ্যাডমিন লগ ইন</title>
-    </head>
-    <body>
-        <?php
+ <?php
         session_start();
         if (isset($_SESSION['admin'])){
             header("location:adminPanel.php");
         }
         require 'Admin.php';
-        $admin = new Admin();
+        $user = new Admin();
         $email = "";
         $errorMsg = "";
         $isValidInfo = TRUE;
@@ -42,7 +34,7 @@
             }
 
             if ($isValidInfo == TRUE) {
-                $userExist = $admin->logIn($email, $password);
+                $userExist = $user->logIn($email, $password);
                 if ($userExist) {
                     $_SESSION["admin"]= $email;
                     header("Location:adminPanel.php");
@@ -52,12 +44,21 @@
             }
         }
         ?>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="index.css" type="text/css" rel="stylesheet" />
+        <title>অ্যাডমিন লগ ইন</title>
+    </head>
+    <body>
+       
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
                     <div class="header">
                         <h1>প্রোগ্রামিং শিখি</h1>
-                        <h3></h3>
+                        <h3>অ্যাডমিন প্যানেল</h3>
                     </div>
                 </div>
                 <div class="gridbox gridmenu">

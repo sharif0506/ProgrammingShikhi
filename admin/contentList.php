@@ -1,18 +1,18 @@
- <?php
-        session_start();
-        if (!isset($_SESSION["admin"])) {
-            header("location:index.php");
-        }
-        ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
         <title>অ্যাডমিন প্যানেল</title>
-     </head>
-    
-    <body> 
+
+    </head>
+    <body>
+        <?php
+        session_start();
+        if (!isset($_SESSION["admin"])) {
+            header("location:index.php");
+        }
+        ?>
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
@@ -33,10 +33,7 @@
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             <li class="menuitem"><a  href="editContent.php">Edit Content</a></li>
                             <li class="menuitem"><a  href="deleteContent.php">Delete Content</a></li>
-                            
-<!--                            <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>-->
-                            
-                            
+
                         </ul>
                     </div>
 
@@ -44,12 +41,20 @@
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1></h1>
-                            <p>Current user :</p>
-                            <p>Total content :</p>
-                            <p>Total question :</p>
-                            <p>Total answer :</p>
-
+                            <h1>List of Contents</h1>
+                            <form method="POST">
+                                <select style="width: 64%; height: 40px; font-size: 18px; text-align: center">
+                                        <?php
+                                        for ($i = 0; $i < sizeof($languages); $i++) {
+                                            echo "<option value='$languages[$i]'>$languages[$i]</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                <button class="loginButton" formaction="">Edit</button>
+                            </form>
+                            <a class="loginButton" href="editContent.php" style="color: white">আপডেট  ফুল নেম</a>
+                            <a class="loginButton" href="editContent.php" style="color: white">আপডেট  ফুল নেম</a>
+                            <a class="loginButton" href="deleteContent.php" style="color: white" >আপডেট  পাসওয়ার্ড</a>
                         </div>
                     </div>
                 </div>

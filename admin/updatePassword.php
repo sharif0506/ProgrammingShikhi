@@ -1,20 +1,28 @@
 <?php
+require 'admin.php';
+$admin = new Admin();
 session_start();
 if (!isset($_SESSION["admin"])) {
     header("location:index.php");
 }
-require 'admin.php';
-$user = new Admin();
+$email = $_SESSION["admin"];
+$adminInformation = $admin->getAdminInfo($email);
 $errorMsg = "";
-$newTutorialLanguage = "";
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $newTutorialLanguage = $_POST['newLanguageName'];
-    $tutorialExist = $user->checkTutorialExist($newTutorialLanguage);
+$currentPassword = $newPassword = $confirmNewPassword = "";
 
-    if ( $tutorialExist == TRUE ) {
-        $errorMsg = "This tutorial already exist";
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $currentPassword = md5($_POST['currentPassword']);
+    $newPassword = md5($_POST['newPassword']);
+    $confirmNewPassword = md5($_POST['confirmNewPassword']);
+    $currentPasswordMatch = $admin->logIn($email, $currentPassword);
+    if ($currentPasswordMatch) {
+        if ($newPassword == $confirmNewPassword) {
+            $admin->updatePassword($newPassword, $email);
+        } else {
+            $errorMsg = "New password mismatch";
+        }
     } else {
-        $user->createNewTutorial($newTutorialLanguage);
+        $errorMsg = "Current Password doesnot match";
     }
 }
 ?>
@@ -23,7 +31,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
-        <title>নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</title>
+        <title>আপডেট ইনফরমেশন</title>
 
     </head>
     <body>
@@ -32,7 +40,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
                     <div class="header">
-                        <h1>প্রোগ্রামিং শিখি</h1>
+                        <h1>প্রোগ্রামিংশিখি</h1>
                         <h3>অ্যাডমিন প্যানেল</h3>
                     </div>
                 </div>
@@ -46,10 +54,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <ul>
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন </a></li>
-
-<!--                            <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>-->
-
-
                         </ul>
                     </div>
 
@@ -57,13 +61,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h2>নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </h2>
+
+                            <h1>আপডেট ইনফরমেশন</h1>
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                                <input type="text" name="newLanguageName" placeholder="New Programming Language Name" required />
+
+                                <p><b>বর্তমান পাসওয়ার্ড :</b></p>
+                                <input type="password" name="currentPassword" placeholder="বর্তমান পাসওয়ার্ড"  />
                                 <br />
-                                <p id="errMsg"><b style="color: red;"><?php echo $errorMsg ?></b></p>
+                                <p><b>নতুন পাসওয়ার্ড :</b></p>
+                                <input type="password" name="newPassword" placeholder="নতুন পাসওয়ার্ড"  />
+                                <p><b>কনফার্ম  নতুন পাসওয়ার্ড :</b></p>
+                                <p><input type="password" name="confirmNewPassword" placeholder="কনফার্ম  নতুন পাসওয়ার্ড"  /></p>
+                                <b style="color: red"><?php echo $errorMsg; ?></b>
                                 <input type="submit" class="loginButton" value="সাবমিট">
-                            </form> 
+
+                            </form>
 
                         </div>
                     </div>

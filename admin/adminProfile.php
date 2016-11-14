@@ -1,12 +1,12 @@
 <?php
 require 'admin.php';
-$admin = new Admin();
+$user = new Admin();
 session_start();
 if (!isset($_SESSION["admin"])) {
     header("location:index.php");
 }
 $email = $_SESSION["admin"];
-$adminInformation = $admin->getAdminInfo($email);
+$adminInformation = $user->getAdminInfo($email);
 ?>
 <!DOCTYPE html>
 <html>
@@ -34,9 +34,8 @@ $adminInformation = $admin->getAdminInfo($email);
                     </div>
                     <div class="menuitem">     
                         <ul>
-                            <li class="menuitem"><a  href="addContent.php">কন্টেন্ট তৈরি</a></li>
-                            <li class="menuitem"><a href="#">কন্টেন্ট আপডেট </a></li>
-                            <li class="menuitem"><a href="#">কন্টেন্ট ডিলিট </a></li>                         
+                            <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </a></li>
+                            <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন </a></li>
                         </ul>
                     </div>
 
@@ -44,11 +43,14 @@ $adminInformation = $admin->getAdminInfo($email);
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            
+
                             <h1>অ্যাডমিন  প্রোফাইল</h1>
-                            <p>User Name: <?php echo "$adminInformation[0]"; ?></p>
-                            <p>Full Name: <?php echo "$adminInformation[1]"; ?></p>
-                            <p>Email: <?php echo "$adminInformation[2]"; ?></p>
+                            <p>ইউজার নেম: <?php echo "$adminInformation[0]"; ?></p>
+                            <p>ফুলনেম: <?php echo "$adminInformation[1]"; ?></p>
+                            <p>ই মেইল: <?php echo "$adminInformation[2]"; ?></p>
+                           
+                            <a class="loginButton" href="updateUsername.php" style="color: white">আপডেট  ফুল নেম</a>
+                            <a class="loginButton" href="updatePassword.php" style="color: white" >আপডেট  পাসওয়ার্ড</a>
                         </div>
                     </div>
                 </div>

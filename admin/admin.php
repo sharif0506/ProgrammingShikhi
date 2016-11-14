@@ -40,7 +40,7 @@ class Admin {
             $directory = $newTutorialLanguage;
             mkdir("$path/" . $newTutorialLanguage);
             $path = $path . "/" . $directory;
-            
+
             $fileName = "default_content_layout.css";
             $input = file_get_contents($fileName);
             $openedFile = fopen("../content/$directory/$fileName", 'w');
@@ -57,7 +57,7 @@ class Admin {
         $pageId = 0;
         $fileName = $fileName . ".php";
         $lastModified = date('d-m-Y');
-        $language = 'c';
+       // $language = 'c';
         $sql = "INSERT INTO content VALUES ('','$fileName','$pageHeading','$content', '$language','$lastModified')";
         if ($connection->query($sql) == TRUE) {
             $input = file_get_contents("default_content_layout.php");
@@ -106,7 +106,7 @@ class Admin {
         return $content;
     }
 
-    function getAllPageHeading($language) {
+    function getAllPageHeading( $language ) {
         $pageHeadings;
         $connection = $this->getConnection();
         $sql = "SELECT PageHeading FROM content WHERE Language = '$language' ";
@@ -125,7 +125,7 @@ class Admin {
         return $pageHeadings;
     }
 
-    function getAllPageName($language){
+    function getAllPageName($language) {
         $pageNames;
         $connection = $this->getConnection();
         $sql = "SELECT PageName FROM content WHERE Language = '$language' ";
@@ -143,7 +143,7 @@ class Admin {
         }
         return $pageNames;
     }
-    
+
     function getAdminInfo($email) {
         $adminInfo;
         $connection = $this->getConnection();
@@ -184,7 +184,7 @@ class Admin {
         return $fileExist;
     }
 
-    function  checkTutorialExist($nameOfLanguage){
+    function checkTutorialExist($nameOfLanguage) {
         $tutorialExist = TRUE;
         $connection = $this->getConnection();
         $sql = "SELECT NameOfProgrammingLanguage FROM tutorial WHERE NameOfProgrammingLanguage='$nameOfLanguage'";
@@ -192,14 +192,14 @@ class Admin {
         if ($result = $x) {
             $numberOfRows = mysqli_num_rows($result);
             if ($numberOfRows == 0) {
-                    $tutorialExist = FALSE;
+                $tutorialExist = FALSE;
             }
             mysqli_free_result($result);
         }
         return $tutorialExist;
     }
-            
-    function getAllNameOfProgrammingLanguage(){
+
+    function getAllNameOfProgrammingLanguage() {
         $languages;
         $connection = $this->getConnection();
         $sql = "SELECT NameOfProgrammingLanguage FROM tutorial ";
@@ -216,15 +216,29 @@ class Admin {
             mysqli_free_result($result);
         }
         return $languages;
-        
-    }
-    
-    function updateFullName() {
-        
     }
 
-    function updatePassword() {
-        
+    function updateFullName($name, $email) {
+        $connection = $this->getConnection();
+        $sql = "UPDATE admin SET FullName = '$name' WHERE Email = '$email'";
+
+        if ($connection->query($sql) == TRUE) {
+            
+        } else {
+            echo "Error: " . $connection->error;
+        }
+        $connection->close();
+    }
+
+    function updatePassword($password, $email) {
+        $connection = $this->getConnection();
+        $sql = "UPDATE admin SET Password = '$password' WHERE Email = '$email'";
+        if ($connection->query($sql) == TRUE) {
+            
+        } else {
+            echo "Error: " . $connection->error;
+        }
+        $connection->close();
     }
 
 }

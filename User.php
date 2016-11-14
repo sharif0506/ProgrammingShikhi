@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Description of User
- *
- * @author sharif rahman
- */
 class User {
 
     function getConnection() {
@@ -67,11 +62,11 @@ class User {
         $result = NULL;
         $dbConnection = $this->getConnection();
         $query = "SELECT * FROM user WHERE Email = '$email' AND Password = '$password'";
-        
+
         $x = $dbConnection->query($query);
         if ($result = $x) {
             $numberOfRows = mysqli_num_rows($result);
-         
+
             if ($numberOfRows > 0) {
                 $userExist = TRUE;
             }
@@ -79,7 +74,68 @@ class User {
         }
         $dbConnection->close();
         return $userExist;
-        
     }
 
+    function getAllLanguage() {
+        $languages;
+        $connection = $this->getConnection();
+        $sql = "SELECT NameOfProgrammingLanguage FROM tutorial ";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $languages[$i] = $row["NameOfProgrammingLanguage"];
+                    $i++;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $languages;
+    }
+
+    function getUserInfo($email) {
+        $userInfo = array();
+        $connection = $this->getConnection();
+        $sql = "SELECT * FROM user WHERE Email = '$email'";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+
+                while ($row = $result->fetch_assoc()) {
+                    $userInfo[0] = $row["UserName"];
+                    $userInfo[1] = $row["FullName"];
+                    $userInfo[2] = $row["Email"];
+                    break;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $userInfo;
+    }
+
+        function updateFullName($name, $email) {
+        $connection = $this->getConnection();
+        $sql = "UPDATE user SET FullName = '$name' WHERE Email = '$email'";
+
+        if ($connection->query($sql) == TRUE) {
+            
+        } else {
+            echo "Error: " . $connection->error;
+        }
+        $connection->close();
+    }
+    
+    function updatePassword($password, $email) {
+        $connection = $this->getConnection();
+        $sql = "UPDATE user SET Password = '$password' WHERE Email = '$email'";
+        if ($connection->query($sql) == TRUE) {
+            
+        } else {
+            echo "Error: " . $connection->error;
+        }
+        $connection->close();
+    }
 }

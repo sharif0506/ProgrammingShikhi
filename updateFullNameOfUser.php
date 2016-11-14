@@ -1,27 +1,41 @@
 <?php
+require 'User.php';
+$user = new User();
 session_start();
 if (!isset($_SESSION["user"])) {
     header("location:index.php");
 }
-require './User.php';
-$user = new User();
 $email = $_SESSION["user"];
+
 $userInfo = $user->getUserInfo($email);
+
+$errorMsg = "";
+$fullName = "";
+if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    $fullName = $_POST['fullName'];
+    if (isset($fullName)) {
+        $user->updateFullName($fullName, $email);
+    } else {
+        $errorMsg = "Error in updating UserName";
+    }
+}
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="profile.css" type="text/css" rel="stylesheet" />
-        <title>ইউজার প্রোফাইল</title>
+        <title>আপডেট  ফুল নেম</title>
+
     </head>
     <body>
+
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
                     <div class="header">
-                        <h1>প্রোগ্রামিং শিখি</h1>
-                        <h3>ইউজার প্রোফাইল</h3>
+                        <h1>প্রোগ্রামিংশিখি</h1>
+                        <h3>আপডেট ইনফরমেশন</h3>
                     </div>
                 </div>
                 <div class="gridbox gridmenu">
@@ -30,16 +44,22 @@ $userInfo = $user->getUserInfo($email);
                         <a href="profile.php"><div class='menuitem'>ইউজার প্রোফাইল</div></a>
                         <a href="logout.php"><div class='menuitem'>লগআউট</div></a>
                     </div>
+
                 </div>
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>ইউজার প্রোফাইল</h1>
-                            <p>ইউজার নেম: <?php echo "$userInfo[0]"; ?></p>
-                            <p>ফুলনেম:<?php echo "$userInfo[1]"; ?></p>
-                            <p>ই মেইল:<?php echo "$userInfo[2]"; ?></p>
-                            <a class="loginButton" href="updateFullNameOfUser.php" style="color: white">আপডেট  ফুল নেম</a>
-                            <a class="loginButton" href="updatePasswordOfUser.php" style="color: white" >আপডেট  পাসওয়ার্ড</a>               
+
+                            <h1>আপডেট  ফুল নেম</h1>
+                            
+                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                <p> <b>  ফুল  নেম :</b></p>
+                                <input type="text" name="fullName" value="<?php echo $userInfo[1]; ?>" placeholder="ফুল  নেম " required />
+                                <br />
+                                <b style="color: red"><?php echo $errorMsg; ?></b>
+                                <input type="submit" class="loginButton" value="সাবমিট">
+
+                            </form>
                             <br /><br /><br /><br /><br />
                         </div>
                     </div>

@@ -1,17 +1,17 @@
  <?php
         require '../../admin/admin.php';
-        $admin = new Admin();
+        $user = new Admin();
         
         session_start();
         if (!isset($_SESSION["user"])) {
             header("location:../index.php");
         }
         $fileName = basename($_SERVER['PHP_SELF']);
-        $thisPageHeading = $admin->getPageHeading($fileName);
-        $content = $admin->getContent($fileName);
+        $thisPageHeading = $user->getPageHeading($fileName);
+        $content = $user->getContent($fileName);
         $language = basename(dirname($_SERVER['PHP_SELF']));
-        $pageHeadings = $admin->getAllPageHeading($language);
-        $pageNames = $admin->getAllPageName($language); 
+        $pageHeadings = $user->getAllPageHeading($language);
+        $pageNames = $user->getAllPageName($language); 
         ?>
 <!DOCTYPE html>
 <html>
