@@ -57,8 +57,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="menuitem">     
                         <ul>
-                            <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন </a></li>
-                            <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন </a></li>
+                            <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
+                            <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
+                            <li class="menuitem"><a  href="editContent.php">কন্টেন্ট আপডেট</a></li>
+                            <li class="menuitem"><a  href="deleteContent.php">কন্টেন্ট ডিলিট</a></li>
 
                         </ul>
                     </div>

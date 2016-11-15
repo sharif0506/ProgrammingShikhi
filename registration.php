@@ -71,7 +71,7 @@
                     $isValidInfo = FALSE;
                 } else {
                     if ($user->checkEmailExist($email)) {
-                        $emailErr = "Email already used";
+                        $emailErr = "Email is already used.Use a different one";
                         $isValidInfo = FALSE;
                     }
                 }
@@ -93,7 +93,7 @@
                 $user->register($userName, $fullName, $email, $password);
                 session_start();
                 $_SESSION["user"] = $email;
-                header("Location:home.php");
+                header("Location:homepage.php");
             }
         }
         ?>

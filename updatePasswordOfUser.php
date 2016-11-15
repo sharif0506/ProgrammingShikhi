@@ -49,7 +49,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     <div class="menuitem">
                         <a href="homepage.php"><div class='menuitem'>হোম </div></a>
                         <a href="profile.php"><div class='menuitem'>ইউজার প্রোফাইল</div></a>
-                        <a href="logout.php"><div class='menuitem'>লগআউট</div></a>
+                        <a href="forum/index.php"><div class='menuitem'>ফোরাম</div></a>
+                        <a href="logout.php">   <div class='menuitem'>লগ আউট</div></a>
                     </div>
 
                 </div>

@@ -34,11 +34,11 @@ $languages = $user->getAllLanguage();
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>Welcome to programming sikhi</h1>
+                            <h1>প্রোগ্রামিংশিখি তে স্বাগতম  </h1>
                             <br />
                             <?php
                             for ($i = 0; $i < sizeof($languages); $i++) {
-                                echo "<p><a href=content/" . $languages[$i] . "/".">Start Learning $languages[$i]</a></p>";
+                                echo "<a  style='color:white' href=content/" . $languages[$i] . "/"."><p class='loginButton' ".">$languages[$i] প্রোগ্রামিং এর টিউটোরিয়াল</p></a>";
                                 
                                 }
                             ?>

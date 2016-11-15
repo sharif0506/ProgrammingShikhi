@@ -31,8 +31,8 @@
                         <ul>
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
-                            <li class="menuitem"><a  href="editContent.php">Edit Content</a></li>
-                            <li class="menuitem"><a  href="deleteContent.php">Delete Content</a></li>
+                            <li class="menuitem"><a  href="editContent.php">কন্টেন্ট আপডেট</a></li>
+                            <li class="menuitem"><a  href="deleteContent.php">কন্টেন্ট ডিলিট</a></li>
                             
 <!--                            <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>-->
                             
@@ -45,10 +45,10 @@
                     <div class="main">
                         <div class="login">
                             <h1></h1>
-                            <p>Current user :</p>
-                            <p>Total content :</p>
-                            <p>Total question :</p>
-                            <p>Total answer :</p>
+                            <p>বর্তমান ব্যবহারকারীর সংখ্যা : 4</p>
+                            <p>মোট কন্টেন্ট সংখ্যা : 2</p>
+                            <p>মোট প্রশ্নের সংখ্যা: 2</p>
+                            <p>মোট উত্তর সংখ্যা : 0</p>
 
                         </div>
                     </div>

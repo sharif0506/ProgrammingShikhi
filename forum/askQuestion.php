@@ -69,7 +69,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
 
                                 <input type="text" name="questionHeading" placeholder="Heading" required />
-                                <p>Select A Language Related To Quesiton</p>
+                                <p>প্রশ্নের সাথে সম্পর্কিত প্রোগ্রামিং ল্যাঙ্গুয়েজ বাছাই করুন</p>
                                 <p> <select name="topic" style="width: 64%; height: 40px; font-size: 18px; text-align: center">
                                         <?php
                                         for ($i = 0; $i < sizeof($languages); $i++) {
@@ -78,7 +78,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                         ?>
                                     </select>
                                 </p>
-                                <textarea name="textarea" rows="20"  cols="80">Question Details</textarea>
+                                <textarea name="textarea" rows="20"  cols="80">প্রশ্নের বিবরণ</textarea>
                                 <br />
                                 <input type="submit" class="loginButton" value="সাবমিট">
                             </form> 
