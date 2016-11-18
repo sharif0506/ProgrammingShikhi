@@ -1,8 +1,15 @@
  <?php
         session_start();
+        require './admin.php';
         if (!isset($_SESSION["admin"])) {
             header("location:index.php");
         }
+        
+        $admin = new Admin();
+        $totalUser = $admin->getTotalNumberOfUser();
+        $totalTutorial = $admin->getTotalTutorial();
+        $totalContent = $admin->getTotalContent();
+        $totalQuestion = $admin->getTotalQuestionOfForum();
         ?>
 <!DOCTYPE html>
 <html>
@@ -45,11 +52,11 @@
                     <div class="main">
                         <div class="login">
                             <h1></h1>
-                            <p>বর্তমান ব্যবহারকারীর সংখ্যা : 4</p>
-                            <p>মোট কন্টেন্ট সংখ্যা : 2</p>
-                            <p>মোট প্রশ্নের সংখ্যা: 2</p>
-                            <p>মোট উত্তর সংখ্যা : 0</p>
-
+                            <p>বর্তমান ব্যবহারকারীর সংখ্যা : <?php echo "$totalUser";?></p>   
+                            <p>মোট প্রোগ্রামিং ল্যাঙ্গুয়েজ সংখ্যা : <?php echo "$totalTutorial";?></p>
+                            <p>মোট ব্যবহারকারীর সংখ্যা : <?php echo "$totalContent";?></p>
+                            <p>ফোরামে  মোট প্রশ্নের সংখ্যা: <?php echo "$totalQuestion";?> </p>
+                            
                         </div>
                     </div>
                 </div>

@@ -57,7 +57,7 @@ class Admin {
         $pageId = 0;
         $fileName = $fileName . ".php";
         $lastModified = date('d-m-Y');
-       // $language = 'c';
+        // $language = 'c';
         $sql = "INSERT INTO content VALUES ('','$fileName','$pageHeading','$content', '$language','$lastModified')";
         if ($connection->query($sql) == TRUE) {
             $input = file_get_contents("default_content_layout.php");
@@ -106,7 +106,7 @@ class Admin {
         return $content;
     }
 
-    function getAllPageHeading( $language ) {
+    function getAllPageHeading($language) {
         $pageHeadings;
         $connection = $this->getConnection();
         $sql = "SELECT PageHeading FROM content WHERE Language = '$language' ";
@@ -239,6 +239,103 @@ class Admin {
             echo "Error: " . $connection->error;
         }
         $connection->close();
+    }
+
+    function getTotalNumberOfUser() {
+        $numberOfUsers = 0;
+        $connection = $this->getConnection();
+        $sql = "SELECT UserName FROM user";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+
+                    $i++;
+                }
+                $numberOfUsers = $i;
+            }
+            mysqli_free_result($result);
+        }
+        return $numberOfUsers;
+    }
+
+    function getTotalTutorial() {
+        $numberOfTutorial = 0;
+        $connection = $this->getConnection();
+        $sql = "SELECT id FROM tutorial";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+
+                    $i++;
+                }
+                $numberOfTutorial = $i;
+            }
+            mysqli_free_result($result);
+        }
+        return $numberOfTutorial;
+    }
+
+    function getTotalContent() {
+        $numberOfContent = 0;
+        $connection = $this->getConnection();
+        $sql = "SELECT id FROM content";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $i++;
+                }
+                $numberOfContent = $i;
+            }
+            mysqli_free_result($result);
+        }
+        return $numberOfContent;
+    }
+
+    function getTotalQuestionOfForum() {
+        $numberOfQuestion = 0;
+        $connection = $this->getConnection();
+        $sql = "SELECT id FROM question";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $i++;
+                }
+                $numberOfQuestion = $i;
+            }
+            mysqli_free_result($result);
+        }
+        return $numberOfQuestion;
+    }
+    
+    function getEveryContent(){
+        $pageHeadings;
+        $connection = $this->getConnection();
+        $sql = "SELECT PageHeading FROM content ";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $pageHeadings[$i] = $row["PageHeading"];
+                    $i++;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $pageHeadings;
     }
 
 }

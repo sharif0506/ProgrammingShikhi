@@ -1,29 +1,22 @@
+ <?php
+        session_start();
+        require './admin.php';
+        if (!isset($_SESSION["admin"])) {
+            header("location:index.php");
+        }
+        
+        $admin = new Admin();
+        $contents = $admin->getEveryContent();
+        ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
-        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-        <script>
-            tinymce.init({
-                selector: 'textarea'
-            }
-            );
-        </script>
         <title>অ্যাডমিন প্যানেল</title>
-        
-    </head>
-    <body>
-        <?php
-        require './admin.php';
-        $admin  = new Admin();
-        session_start();
-        if (!isset($_SESSION["admin"])) {
-            header("location:index.php");
-        }
-        $errorMsg = "";
-        //getfilename,getcontent,getheading,getlanguage
-        ?>
+     </head>
+    
+    <body> 
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
@@ -42,8 +35,8 @@
                         <ul>
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
-                             <li class="menuitem"><a  href="editContent.php">Edit Content</a></li>
-                             <li class="menuitem"><a  href="deleteContent.php">Delete Content</a></li>
+                            <li class="menuitem"><a  href="editContent.php">কন্টেন্ট আপডেট</a></li>
+                            <li class="menuitem"><a  href="deleteContent.php">কন্টেন্ট ডিলিট</a></li>
                             
 <!--                            <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>-->
                             
@@ -55,24 +48,17 @@
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>Edit Content</h1>
-                           <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
-                                <input type="text" name="pageName" placeholder="page name" required />
-                                <br />
-                                <p id="errMsg"><b><?php echo $errorMsg ?></b></p>
-                                <input type="text" name="pageHeading" placeholder="page heading" required />
-                                <p> <select style="width: 64%; height: 40px; font-size: 18px; text-align: center">
+                            <h1>Select Content to update</h1>
+                            <p> <select style="width: 64%; height: 40px; font-size: 18px; text-align: center">
                                         <?php
-                                        for ($i = 0; $i < sizeof($languages); $i++) {
-                                            echo "<option value='$languages[$i]'>$languages[$i]</option>";
+                                        for ($i = 0; $i < sizeof($contents); $i++) {
+                                            echo "<option value='$contents[$i]'>$contents[$i]</option>";
                                             
                                         }
                                         ?>
                                     </select>
                                 </p>
-                                <textarea name="textarea" rows="20" ></textarea>
-                                <input type="submit" class="loginButton" value="সাবমিট">
-                            </form> 
+                            
                         </div>
                     </div>
                 </div>
