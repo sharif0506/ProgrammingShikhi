@@ -13,14 +13,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $pageHeading = $_POST['pageHeading'];
     $content = $_POST['textarea'];
     $language = $_POST['language'];
-    $lastModified = "";
-    
     $fileExist = TRUE;
     $fileExist = $user->checkFileNameExist($pageName);
     if ($fileExist) {
         $errorMsg = "Page name already exist.";
     } else {
-        $user->addContent($pageName, $pageHeading, $content, $language, $lastModified);
+        $user->addContent($pageName, $pageHeading, $content, $language);
     }
 }
 ?>

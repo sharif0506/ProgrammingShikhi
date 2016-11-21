@@ -1,3 +1,4 @@
 <?php
 
-$result =$_GET['phone'];
+$name = $_GET['question'];
+echo $name;

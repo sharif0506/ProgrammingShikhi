@@ -6,16 +6,19 @@ if (!isset($_SESSION["user"])) {
 require './Forum.php';
 $forum = new Forum();
 if (!isset($_GET["question"]) && !isset($_GET["asker"]) && !isset($_GET["date"])) {
-    // header("Location:index.php");
+   // header("Location:index.php");
+    
 }
-$thisQuestionAnswers = array();
-$thisPageHeading = $_GET['question'];
+
+$thisPageHeading = $_GET['questionHeading'];
+$thisQuestion = $_GET['question'];
 $thisQuestionAsker = $_GET['asker'];
 $date = $_GET['date'];
-$thisQuestionID = $forum->getQuestionID($thisPageHeading, $thisQuestionAsker, $date);
-$thisQuestion = $forum->getCurrentQuestion($thisPageHeading, $thisQuestionAsker, $date);
-$thisQuestionAnswers = $forum->getQuestionAnswer($thisQuestionID);
-$thisQuestionAnswerer = $forum->getQuestionAnswerer($thisQuestionID);
+$thisQuestionID = $forum->getQuestionID($thisPageHeading,$thisQuestionAsker,$date);
+$_SESSION['questionID'] = $thisQuestionID;
+
+    //header("Location:default_question_layout.php");
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -36,11 +39,6 @@ $thisQuestionAnswerer = $forum->getQuestionAnswerer($thisQuestionID);
                 weight: 50%;
                 background-color: lightcyan;
             }
-            .givenAnswerDiv{
-                height: 20%;
-                weight: 50%;
-                background-color: aliceblue;
-            }
         </style>
     </head>
     <body>
@@ -49,15 +47,15 @@ $thisQuestionAnswerer = $forum->getQuestionAnswerer($thisQuestionID);
                 <div class="gridbox gridheader">
                     <div class="header">
                         <h1>প্রোগ্রামিং শিখি</h1>
-                        <h3>ফোরাম<?php //echo $thisPageHeading     ?></h3>
+                        <h3>ফোরাম<?php //echo $thisPageHeading   ?></h3>
                     </div>
                 </div>
                 <div class="gridbox gridmenu">
                     <div class="menuitem">
-                        <a href="../../index.php"><div class='menuitem'>হোম </div></a>
-                        <a  href="../../profile.php"><div class='menuitem'>প্রোফাইল</div></a>
-                        <a  href="../Forum/index.php"><div class='menuitem'>ফোরাম </div></a>
-                        <a href="../../logout.php">   <div class='menuitem'>লগ আউট</div></a>
+                        <a href="../index.php"><div class='menuitem'>হোম </div></a>
+                        <a  href="../profile.php"><div class='menuitem'>প্রোফাইল</div></a>
+                        <a  href="index.php"><div class='menuitem'>ফোরাম </div></a>
+                        <a href="../logout.php">   <div class='menuitem'>লগ আউট</div></a>
                     </div>
                     <div class="menuitem">     
                         <ul>
@@ -70,22 +68,16 @@ $thisQuestionAnswerer = $forum->getQuestionAnswerer($thisQuestionID);
                         <div class="login">
                             <div class="questionDiv" >
                                 <h1><?php echo $thisPageHeading ?></h1>
-                                <?php echo $thisQuestion; ?>   
+                                    <?php echo $thisQuestion; ?>   
                                 <p><b>Asked by: </b><?php echo $thisQuestionAsker; ?></p>
                                 <p><b>Date: </b><?php echo $date; ?></p>
                             </div>
                             <br />
-                            <?php
-                            for ($i = 0; $i < sizeof($thisQuestionAnswers); $i++) {
-                                echo "<div class='givenAnswerDiv'>"
-                                . "$thisQuestionAnswers[$i]"
-                                . "<br /><br /> Given by: $thisQuestionAnswerer[$i]"
-                                . "</div> <br />";
-                            }
-                            ?>
-                            <br />
                             <div class="answerDiv">
-                                <a class="loginButton" href="default_answering_layout.php?<?php echo "questionHeading=$thisPageHeading&question=$thisQuestion&asker=$thisQuestionAsker&date=$date";?>">Give Answer</a>
+                                <form method="POST" action="saveAnswer.php">
+                                    <textarea name="textarea" rows="20"  cols="80"></textarea>
+                                    <input class="loginButton" type="submit" value="Submit" />
+                                </form>
                             </div>
                         </div>
                     </div>

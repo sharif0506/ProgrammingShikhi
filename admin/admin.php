@@ -52,12 +52,12 @@ class Admin {
         $connection->close();
     }
 
-    function addContent($fileName, $pageHeading, $content, $lastModified, $language) {
+    function addContent($fileName, $pageHeading, $content, $language) {
         $connection = $this->getConnection();
         $pageId = 0;
         $fileName = $fileName . ".php";
         $lastModified = date('d-m-Y');
-        // $language = 'c';
+      
         $sql = "INSERT INTO content VALUES ('','$fileName','$pageHeading','$content', '$language','$lastModified')";
         if ($connection->query($sql) == TRUE) {
             $input = file_get_contents("default_content_layout.php");
@@ -318,11 +318,11 @@ class Admin {
         }
         return $numberOfQuestion;
     }
-    
-    function getEveryContent(){
+
+    function getEveryContentHeading($language) {
         $pageHeadings;
         $connection = $this->getConnection();
-        $sql = "SELECT PageHeading FROM content ";
+        $sql = "SELECT PageHeading FROM content WHERE Language='$language'";
         $x = $connection->query($sql);
         if ($result = $x) {
             $numberOfRows = mysqli_num_rows($result);
@@ -338,4 +338,65 @@ class Admin {
         return $pageHeadings;
     }
 
+    function getFileName($language, $pageHeading) {
+        $fileName = NULL;
+        $connection = $this->getConnection();
+        $sql = "SELECT PageName FROM content WHERE PageHeading='$pageHeading' AND Language='$language' ";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+
+                while ($row = $result->fetch_assoc()) {
+                    $fileName = $row["PageName"];
+                    break;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        $fileName = explode(".", $fileName);
+        return $fileName[0];
+    }
+
+    function getContentID($pageName) {
+        $id = 0;
+        $connection = $this->getConnection();
+        $sql = "SELECT id FROM content WHERE PageName = '$pageName' ";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $id = $row["id"];
+                    break;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $id;
+    }
+
+    function updateContent($id, $pageHeading, $content) {
+        $connection = $this->getConnection();
+        $lastModified = date('d-m-Y');
+        $sql = "UPDATE content SET  PageHeading='$pageHeading',Content='$content',LastModified = '$lastModified' WHERE id = '$id'";
+        if ($connection->query($sql) == TRUE) {
+            //do nothing
+        } else {
+            echo "Error: " . $connection->error;
+        }
+        $connection->close();
+    }
+    
+    function deleteContent($pageHeading,$language){
+        $connection = $this->getConnection();
+        $sql = "DELETE FROM content WHERE PageHeading='$pageHeading' AND Language='$language'";
+        if ($connection->query($sql) == TRUE) {
+            //do nothing
+        } else {
+            echo "Error: " . $connection->error;
+        }
+        $connection->close();
+       
+    }
 }

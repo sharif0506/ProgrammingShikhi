@@ -17,7 +17,7 @@
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <link href="default_question_layout.css" type="text/css" rel="stylesheet" />
+        <link href="default_content_layout.css" type="text/css" rel="stylesheet" />
         <title><?php echo "$thisPageHeading";?></title>
         
     </head>

@@ -8,6 +8,9 @@ $forum = new Forum();
 $questions = $forum->getAllQuestion();
 $questionDate = $forum->getAllQuestionDate();
 $questionAsker = $forum->getAllQuestionAsker();
+
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -19,11 +22,10 @@ $questionAsker = $forum->getAllQuestionAsker();
             .questionDiv{
                 height: 20%;
                 weight: 50%;
-                background-color: lightgray;
+                background-color: lightcyan;
             }
         </style>
     </head>
-
     <body> 
         <div class="gridcontainer">
             <div class="gridwrapper">
@@ -43,10 +45,8 @@ $questionAsker = $forum->getAllQuestionAsker();
                     <div class="menuitem">     
                         <ul> 
                             <li class="menuitem"><a  href="askQuestion.php">প্রশ্ন করুন</a></li>
-
                         </ul>
                     </div>
-
                 </div>
                 <div class="gridbox gridmain">
                     <div class="main">
@@ -54,16 +54,16 @@ $questionAsker = $forum->getAllQuestionAsker();
                             <h1>ফোরাম</h1>
                             <?php
                             for ($i = 0; $i < sizeof($questions); $i++) {
-                                echo "<a href='default_question_layout.php?$questions[$i]]'style='text-align:left'><div class='questionDiv'>"
+                                echo "<a href='default_question_layout.php?question=$questions[$i]&asker=$questionAsker[$i]&date=$questionDate[$i]'style='text-align:left'>"
+                                . "<div class='questionDiv'>"
                                 . "<h3>$questions[$i]</h3>"
                                 . " <br />"
                                 . "<P>Published by:$questionAsker[$i]</p>"
                                 . "<P style='text-align:right'>Date: $questionDate[$i]</p>"
                                 . "</div>"
-                                . "<a>";
+                                . "</a>";
                             }
                             ?>
-
                         </div>
                     </div>
                 </div>

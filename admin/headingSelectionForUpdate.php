@@ -4,12 +4,13 @@
         if (!isset($_SESSION["admin"])) {
             header("location:index.php");
         }
-        
+        if (!isset($_POST['language'])) {
+            header("location:languageSelectionForUpdate.php");
+        }
+        $_SESSION['language'] = $_POST['language'];
+        $language = $_POST['language'];
         $admin = new Admin();
-        $totalUser = $admin->getTotalNumberOfUser();
-        $totalTutorial = $admin->getTotalTutorial();
-        $totalContent = $admin->getTotalContent();
-        $totalQuestion = $admin->getTotalQuestionOfForum();
+        $pageHeadings = $admin->getEveryContentHeading($language);
         ?>
 <!DOCTYPE html>
 <html>
@@ -38,9 +39,8 @@
                         <ul>
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
-                            <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
-                            <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
-        
+                            <li class="menuitem"><a  href="editContent.php">কন্টেন্ট আপডেট</a></li>
+                            <li class="menuitem"><a  href="deleteContent.php">কন্টেন্ট ডিলিট</a></li>
                         </ul>
                     </div>
 
@@ -48,12 +48,19 @@
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1></h1>
-                            <p>বর্তমান ব্যবহারকারীর সংখ্যা : <?php echo "$totalUser";?></p>   
-                            <p>মোট প্রোগ্রামিং ল্যাঙ্গুয়েজ সংখ্যা : <?php echo "$totalTutorial";?></p>
-                            <p>মোট ব্যবহারকারীর সংখ্যা : <?php echo "$totalContent";?></p>
-                            <p>ফোরামে  মোট প্রশ্নের সংখ্যা: <?php echo "$totalQuestion";?> </p>
-                            
+                            <h1>Select Content to update</h1>
+                            <form method="GET" action="editContent.php">
+                            <p> <select name='pageHeading' style="width: 64%; height: 40px; font-size: 18px; text-align: center">
+                                        <?php
+                                        for ($i = 0; $i < sizeof($pageHeadings); $i++) {
+                                            echo "<option  value='$pageHeadings[$i]'>$pageHeadings[$i]</option>";
+                                            
+                                        }
+                                        ?>
+                                    </select>
+                                </p>
+                                <input class="loginButton" type="submit" value="Submit" />
+                            </form>
                         </div>
                     </div>
                 </div>

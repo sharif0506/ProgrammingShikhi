@@ -1,13 +1,20 @@
 <?php
+session_start();
+if (!isset($_SESSION["admin"])) {
+     header("location:index.php");
+}
+if (!isset($_SESSION['language'])) {
+     header("location:languageSelectionForUpdate.php");
+}
 
-//$fileName = "c_intro.php";
-//require './admin.php';
-//$admin   = new Admin();
-//$pageHeading = $admin->getPageHeading($fileName);
-//echo $pageHeading;
 require './admin.php';
-$user = new Admin();
 
-//$admin->updateFullName($name, $email);
-$email = $_SESSION['admin'];
-echo $email;
+$id =0;
+$admin = new Admin();
+$pageHeading = $_POST['newPageHeading'];
+$content = $_POST['textarea'];
+$id = $_SESSION['id'];
+
+$admin->updateContent($id, $pageHeading, $content);
+header("location:languageSelectionForUpdate.php");
+ 
