@@ -38,7 +38,7 @@ $languages = $user->getAllLanguage();
                             <br />
                             <?php
                             for ($i = 0; $i < sizeof($languages); $i++) {
-                                echo "<a  style='color:white' href=content/" . $languages[$i] . "/"."><p class='loginButton' ".">$languages[$i] প্রোগ্রামিং এর টিউটোরিয়াল</p></a>";
+                                echo "<a  style='color:white' href=Content/" . $languages[$i] . "/"."><p class='loginButton' ".">$languages[$i] প্রোগ্রামিং এর টিউটোরিয়াল</p></a>";
                                 
                                 }
                             ?>

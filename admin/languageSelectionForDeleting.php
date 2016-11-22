@@ -36,10 +36,7 @@
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             <li class="menuitem"><a  href="editContent.php">কন্টেন্ট আপডেট</a></li>
-                            <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
-                            
-<!--                            <li class="menuitem"><a href="#contact">কন্টেন্ট ডিলিট </a></li>-->
-                            
+                            <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>                   
                             
                         </ul>
                     </div>
@@ -48,7 +45,7 @@
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>Select Content to Delete</h1>
+                            <h1>ডিলিট কন্টেন্ট</h1>
                             <form method="POST" action="contentSelectionForDeleting.php">
                             <p> <select name='language' style="width: 64%; height: 40px; font-size: 18px; text-align: center">
                                         <?php

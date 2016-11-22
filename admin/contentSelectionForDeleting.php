@@ -48,7 +48,7 @@
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>Select Content to Delete</h1>
+                            <h1>ডিলিট কন্টেন্ট</h1>
                             <form method="GET" action="deleteContent.php">
                             <p> <select name='pageHeading' style="width: 64%; height: 40px; font-size: 18px; text-align: center">
                                         <?php

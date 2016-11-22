@@ -19,6 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $errorMsg = "Page name already exist.";
     } else {
         $user->addContent($pageName, $pageHeading, $content, $language);
+        header("Location:adminPanel.php");
     }
 }
 ?>
@@ -57,8 +58,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <ul>
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
-                            <li class="menuitem"><a  href="editContent.php">কন্টেন্ট আপডেট</a></li>
-                            <li class="menuitem"><a  href="deleteContent.php">কন্টেন্ট ডিলিট</a></li>
+                            <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
+                            <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
 
                         </ul>
                     </div>

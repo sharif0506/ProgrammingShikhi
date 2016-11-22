@@ -2,15 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/forum/default_answering_layout.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/admin/test.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/forum/askQuestion.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/forum/default_question_layout.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/forum/saveAnswer.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/forum/Forum.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/forum/index.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/User.php</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

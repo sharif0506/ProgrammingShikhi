@@ -5,18 +5,13 @@ session_start();
 if (!isset($_SESSION["admin"])) {
     header("location:index.php");
 }
-if (isset($_POST['pageHeading'])) {
-    $pageHeading = $_POST['pageHeading'];
+if (isset($_GET['pageHeading'])) {
+    $pageHeading = $_GET['pageHeading'];
+   
 }
-
+$_SESSION['pageHeading'] = $pageHeading;
 $language = $_SESSION['language'];
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
-    $fileName = $admin->getFileName($language, $pageHeading);
-    $admin->deleteContent($pageHeading, $language);
-    $file = "../Content/$language/$fileName".".php";
-    unlink($file);
-}
 ?>
 
 <!DOCTYPE html>
@@ -46,8 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <ul>
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
-                            <li class="menuitem"><a  href="editContent.php">Edit Content</a></li>
-                            <li class="menuitem"><a  href="languageSelectionForDeleting.php">Delete Content</a></li>
+                            <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
+                            <li class="menuitem"><a  href="languageSelectionForDeleting.php">ডিলিট কন্টেন্ট</a></li>
 
                         </ul>
                     </div>
@@ -61,7 +56,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 The  file will be deleted. 
                                 Do you want to continue?
                             </p>
-                            <form method="GET" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                            <form method="POST" action="deleteContentOperation.php">
                                 <input class="loginButton" type="submit" value="Confirm" />
                             </form>
                         </div>

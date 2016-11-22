@@ -51,7 +51,7 @@
                             <h1></h1>
                             <p>বর্তমান ব্যবহারকারীর সংখ্যা : <?php echo "$totalUser";?></p>   
                             <p>মোট প্রোগ্রামিং ল্যাঙ্গুয়েজ সংখ্যা : <?php echo "$totalTutorial";?></p>
-                            <p>মোট ব্যবহারকারীর সংখ্যা : <?php echo "$totalContent";?></p>
+                            <p>মোট কন্টেন্ট সংখ্যা : <?php echo "$totalContent";?></p>
                             <p>ফোরামে  মোট প্রশ্নের সংখ্যা: <?php echo "$totalQuestion";?> </p>
                             
                         </div>

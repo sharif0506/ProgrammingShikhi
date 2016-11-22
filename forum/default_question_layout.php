@@ -54,10 +54,10 @@ $thisQuestionAnswerer = $forum->getQuestionAnswerer($thisQuestionID);
                 </div>
                 <div class="gridbox gridmenu">
                     <div class="menuitem">
-                        <a href="../../index.php"><div class='menuitem'>হোম </div></a>
-                        <a  href="../../profile.php"><div class='menuitem'>প্রোফাইল</div></a>
+                        <a href="../index.php"><div class='menuitem'>হোম </div></a>
+                        <a  href="../profile.php"><div class='menuitem'>প্রোফাইল</div></a>
                         <a  href="../Forum/index.php"><div class='menuitem'>ফোরাম </div></a>
-                        <a href="../../logout.php">   <div class='menuitem'>লগ আউট</div></a>
+                        <a href="../logout.php">   <div class='menuitem'>লগ আউট</div></a>
                     </div>
                     <div class="menuitem">     
                         <ul>
@@ -79,7 +79,7 @@ $thisQuestionAnswerer = $forum->getQuestionAnswerer($thisQuestionID);
                             for ($i = 0; $i < sizeof($thisQuestionAnswers); $i++) {
                                 echo "<div class='givenAnswerDiv'>"
                                 . "$thisQuestionAnswers[$i]"
-                                . "<br /><br /> Given by: $thisQuestionAnswerer[$i]"
+                                . "<br /><br /> <b>Given by:</b> $thisQuestionAnswerer[$i]"
                                 . "</div> <br />";
                             }
                             ?>

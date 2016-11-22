@@ -7,8 +7,8 @@
     </head>
     <body>  
         <?php
-        date_default_timezone_set('Asia/Dhaka');
-        echo date("d-m-Y H:i:s");
+        $file = "../Content/c/index.php";
+        unlink($file);
         ?>
 
     </body>

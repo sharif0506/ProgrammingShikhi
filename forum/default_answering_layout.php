@@ -6,31 +6,29 @@ if (!isset($_SESSION["user"])) {
 require './Forum.php';
 $forum = new Forum();
 if (!isset($_GET["question"]) && !isset($_GET["asker"]) && !isset($_GET["date"])) {
-   // header("Location:index.php");
-    
+    // header("Location:index.php");
 }
 
 $thisPageHeading = $_GET['questionHeading'];
 $thisQuestion = $_GET['question'];
 $thisQuestionAsker = $_GET['asker'];
 $date = $_GET['date'];
-$thisQuestionID = $forum->getQuestionID($thisPageHeading,$thisQuestionAsker,$date);
+$thisQuestionID = $forum->getQuestionID($thisPageHeading, $thisQuestionAsker, $date);
 $_SESSION['questionID'] = $thisQuestionID;
 
-    //header("Location:default_question_layout.php");
-
+//header("Location:default_question_layout.php");
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
+<!--        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
         <script>
             tinymce.init({
                 selector: 'textarea'
             }
             );
-        </script>
+        </script>-->
         <link href="default_question_layout.css" type="text/css" rel="stylesheet" />
         <title><?php echo "$thisPageHeading"; ?></title>
         <style>
@@ -47,7 +45,7 @@ $_SESSION['questionID'] = $thisQuestionID;
                 <div class="gridbox gridheader">
                     <div class="header">
                         <h1>প্রোগ্রামিং শিখি</h1>
-                        <h3>ফোরাম<?php //echo $thisPageHeading   ?></h3>
+                        <h3>ফোরাম<?php //echo $thisPageHeading    ?></h3>
                     </div>
                 </div>
                 <div class="gridbox gridmenu">
@@ -68,14 +66,16 @@ $_SESSION['questionID'] = $thisQuestionID;
                         <div class="login">
                             <div class="questionDiv" >
                                 <h1><?php echo $thisPageHeading ?></h1>
-                                    <?php echo $thisQuestion; ?>   
+                                <?php echo $thisQuestion; ?>   
                                 <p><b>Asked by: </b><?php echo $thisQuestionAsker; ?></p>
                                 <p><b>Date: </b><?php echo $date; ?></p>
                             </div>
                             <br />
                             <div class="answerDiv">
                                 <form method="POST" action="saveAnswer.php">
+                                   <b> <p>বিস্তারিত উত্তর:</p></b>
                                     <textarea name="textarea" rows="20"  cols="80"></textarea>
+                                    <br />
                                     <input class="loginButton" type="submit" value="Submit" />
                                 </form>
                             </div>

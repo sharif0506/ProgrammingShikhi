@@ -39,8 +39,8 @@
                         <ul>
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
-                            <li class="menuitem"><a  href="editContent.php">কন্টেন্ট আপডেট</a></li>
-                            <li class="menuitem"><a  href="deleteContent.php">কন্টেন্ট ডিলিট</a></li>
+                            <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
+                            <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
                         </ul>
                     </div>
 
@@ -48,7 +48,7 @@
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>Select Content to update</h1>
+                            <h1>কন্টেন্ট আপডেট</h1>
                             <form method="GET" action="editContent.php">
                             <p> <select name='pageHeading' style="width: 64%; height: 40px; font-size: 18px; text-align: center">
                                         <?php
