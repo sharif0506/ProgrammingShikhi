@@ -35,7 +35,7 @@
                     <div class="menuitem">
                         <a href="../../homepage.php"><div class='menuitem'>হোম </div></a>
                         <a  href="../../profile.php"><div class='menuitem'>প্রোফাইল</div></a>
-                        <a href="../../logout.php"><div class='menuitem'>লগ আউট</div></a>
+                        <a href="../../logout.php">   <div class='menuitem'>লগ আউট</div></a>
                     </div>
                     <div class="menuitem">     
                         <ul>
@@ -58,9 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="gridbox gridright">
-                    Advertisement
-                </div>
+               
                 <div class="gridbox gridfooter">
                     <div class="footer">
                         <p>This website is developed by Sharif Rahman</p>

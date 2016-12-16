@@ -38,27 +38,29 @@ $languages = $user->getAllLanguage();
                             <br />
                             <?php
                             for ($i = 0; $i < sizeof($languages); $i++) {
-                                echo "<a  style='color:white' href=Content/" . $languages[$i] . "/"."><p class='loginButton' ".">$languages[$i] প্রোগ্রামিং এর টিউটোরিয়াল</p></a>";
-                                
-                                }
+                                echo "<a  style='color:white' href=Content/" . $languages[$i] . "/" . "><p class='loginButton' " . ">$languages[$i] প্রোগ্রামিং এর টিউটোরিয়াল</p></a>";
+                            }
                             ?>
-                            
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
-                            <br />
 
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            
 
                         </div>
                     </div>
                 </div>
-                <div class="gridbox gridright">
-                    Advertisement
-                </div>
+               
                 <div class="gridbox gridfooter">
                     <div class="footer">
                         <p>This website is developed by Sharif</p>

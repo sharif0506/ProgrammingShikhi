@@ -79,13 +79,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 <b style="color: red"><?php echo $errorMsg; ?></b>
                                 <input type="submit" class="loginButton" value="সাবমিট">
                             </form>
-                            <br /><br /><br /><br /><br />
+                            <br /><br /><br /><br /><br /><br /><br /><br />
                         </div>
                     </div>
                 </div>
-                <div class="gridbox gridright">
-                    Advertisement
-                </div>
+                
                 <div class="gridbox gridfooter">
                     <div class="footer">
                         <p>This website is developed by Sharif</p>
@@ -94,4 +92,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </div>
         </div>
     </body>
-</html>
+</html>l

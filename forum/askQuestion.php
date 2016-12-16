@@ -16,7 +16,6 @@ function validate_Information($input) {
 }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-
     $questionHeading = $_POST['questionHeading'];
     $topic = $_POST['topic'];
     $question = $_POST['textarea'];
@@ -85,9 +84,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
                         </div>
                     </div>
-                </div>
-                <div class="gridbox gridright">
-                    Advertisement
                 </div>
                 <div class="gridbox gridfooter">
                     <div class="footer">

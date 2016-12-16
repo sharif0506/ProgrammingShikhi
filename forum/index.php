@@ -67,9 +67,7 @@ $questionAsker = $forum->getAllQuestionAsker();
                         </div>
                     </div>
                 </div>
-                <div class="gridbox gridright">
-                    Advertisement
-                </div>
+                
                 <div class="gridbox gridfooter">
                     <div class="footer">
                         <p>This website is developed by Sharif</p>
