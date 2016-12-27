@@ -4,8 +4,13 @@ require './admin.php';
 if (!isset($_SESSION["admin"])) {
     header("location:index.php");
 }
-
+if (!isset($_POST['language'])) {
+    header("location:languageSelctionForAddingQuiz.php");
+}
+$_SESSION['language'] = $_POST['language'];
+$language = $_POST['language'];
 $admin = new Admin();
+$pageHeadings = $admin->getContentHeadingsToEditQuiz($language);
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,47 +18,6 @@ $admin = new Admin();
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
         <title>অ্যাডমিন প্যানেল</title>
-        <style>
-            .buttonNext {
-                display: inline-block;
-                border-radius: 4px;
-                background-color: #274a6d;
-                border: none;
-                color: #FFFFFF;
-                text-align: center;
-                font-size: 20px;
-                padding: 15px;
-                width: 50%;
-                transition: all 0.5s;
-                cursor: pointer;
-                margin: 5px;
-            }
-
-            .buttonNext span {
-                cursor: pointer;
-                display: inline-block;
-                position: relative;
-                transition: 0.5s;
-            }
-
-            .buttonNext span:after {
-                content: '\00bb';
-                position: absolute;
-                opacity: 0;
-                top: 0;
-                right: -20px;
-                transition: 0.5s;
-            }
-
-            .buttonNext:hover span {
-                padding-right: 25px;
-            }
-
-            .buttonNext:hover span:after {
-                opacity: 1;
-
-            }
-        </style>
     </head>
 
     <body> 
@@ -62,7 +26,7 @@ $admin = new Admin();
                 <div class="gridbox gridheader">
                     <div class="header">
                         <h1>প্রোগ্রামিং শিখি</h1>
-                        <h3>Quiz</h3>
+                        <h3>অ্যাডমিন প্যানেল</h3>
                     </div>
                 </div>
                 <div class="gridbox gridmenu">
@@ -75,24 +39,26 @@ $admin = new Admin();
                         <ul>
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
-                            <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
+                            <li class="menuitem"><a  href="editContent.php">কন্টেন্ট আপডেট</a></li>
                             <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
-
                         </ul>
                     </div>
-
                 </div>
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>Quiz</h1>
-                            <a href="languageSelctionForAddingQuiz.php" ><button class='buttonNext' style='vertical-align:middle'><span>Quiz Add</span></button> </a>
-                            <br />
-                            <br />
-                            <a href="languageSelectionForEditingQuiz.php" ><button class='buttonNext' style='vertical-align:middle'><span>Quiz Edit</span></button> </a>
-                            <br />
-                            <br />
-                            <a href="quizDelete.php" ><button class='buttonNext' style='vertical-align:middle'><span>Quiz Delete</span></button> </a>
+                            <h2>Select content for adding quiz</h2>
+                            <form method="GET" action="quizEdit.php">
+                                <p> <select name='pageHeading' style="width: 64%; height: 40px; font-size: 18px; text-align: center">
+                                        <?php
+                                        for ($i = 0; $i < sizeof($pageHeadings); $i++) {
+                                            echo "<option  value='$pageHeadings[$i]'>$pageHeadings[$i]</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </p>
+                                <input class="loginButton" type="submit" value="Submit" />
+                            </form>
                         </div>
                     </div>
                 </div>

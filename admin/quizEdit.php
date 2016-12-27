@@ -4,8 +4,25 @@ require './admin.php';
 if (!isset($_SESSION["admin"])) {
     header("location:index.php");
 }
-
+if (!isset($_SESSION['pageHeading'])) {
+    header("Location:contentSelectionForAddingQuiz.php");
+}
 $admin = new Admin();
+$errorMsg = "";
+//session variable  haas language and pageheading 
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $_SESSION['pageHeading'] = $_GET['pageHeading'];
+}
+$language = $_SESSION['language'];
+$pageHeading = $_SESSION['pageHeading'];
+$fileName = $admin->getFileName($language, $pageHeading);
+$fileName = $fileName . ".php";
+$content_id = $admin->getContentID($fileName);
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    
+    
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -14,7 +31,6 @@ $admin = new Admin();
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
         <title>অ্যাডমিন প্যানেল</title>
     </head>
-
     <body> 
         <div class="gridcontainer">
             <div class="gridwrapper">
@@ -36,15 +52,28 @@ $admin = new Admin();
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
                             <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
-
                         </ul>
                     </div>
-
                 </div>
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
                             <h1>Quiz</h1>
+                            <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                <?php
+                                $optionCounter = 0;
+                                for ($i = 0; $i < 5; $i++) {
+                                    echo "<p>Question " . ($i + 1) . " </p>";
+                                    echo "<p><textarea name='quizQuestion" . $i . "' rows='10' cols='50' required ></textarea></p>";
+                                    for ($j = 0; $j < 4; $j++) {
+                                        echo" <input type='text' name='option" . $optionCounter . "' placeholder='option " . ($j + 1) . "' required /><br />";
+                                        $optionCounter++;
+                                    }
+                                    echo "<input type='text' name='answerOfQuizQuestion" . $i . "' placeholder='Correct Answer' required /><br />";
+                                }
+                                ?>
+                                <input type="submit" class="loginButton" value="সাবমিট">
+                            </form>    
                         </div>
                     </div>
                 </div>

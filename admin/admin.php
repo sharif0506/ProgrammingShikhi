@@ -502,7 +502,7 @@ class Admin {
     function addQuiz($questions, $answers, $options, $fileName ,$quizset) {
        $contentId = $this->getContentID($fileName);
         $connection = $this->getConnection();
-        $sql = "INSERT INTO quizset VALUES "
+        $sql = "INSERT INTO quizquestion VALUES "
             . "('','$quizset','$contentId','$questions[0]','$options[0]','$options[1]','$options[2]','$options[3]','$answers[0]'),"
             . "('','$quizset','$contentId','$questions[1]','$options[4]','$options[5]','$options[6]','$options[7]','$answers[1]'),"
             . "('','$quizset','$contentId','$questions[2]','$options[8]','$options[9]','$options[10]','$options[11]','$answers[2]'),"
@@ -517,5 +517,44 @@ class Admin {
         return $sql;
         
     }
+    
+    function getContentHeadingsToEditQuiz($language) {
+        $pageHeadings;
+        $connection = $this->getConnection();
+        $sql = "SELECT PageHeading FROM content WHERE Language = '$language' AND id IN (SELECT content_id FROM quizquestion)";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $pageHeadings[$i] = $row["PageHeading"];
+                    $i++;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $pageHeadings;
+    }
 
+    function  getQuizQuestions($contentId){
+        $questionInfo = array();
+        $connection = $this->getConnection();
+        $sql = "SELECT * FROM quizquestion WHERE content_id = '$contentId' ";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                
+                while ($row = $result->fetch_assoc()) {
+                    $pageHeadings[$i] = $row["PageHeading"];
+                    $i++;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $numberOfRows;
+    }
+    
 }

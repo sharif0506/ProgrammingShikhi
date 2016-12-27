@@ -18,20 +18,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $questions = array();
     $answers = array();
     $options = array();
-    for ($i = 0; $i < 3; $i++) {
+    for ($i = 0; $i < 5; $i++) {
         $questions[$i] = $_POST["quizQuestion" . $i];
         $answers[$i] = $_POST["answerOfQuizQuestion" . $i];
     }
-    $totalOption = 3 * 4;
+    $totalOption = 5 * 4;
     for ($p = 0; $p < $totalOption; $p++) {
-        $options[$p] = $_POST["option".$p];
-        echo $options[$p];
+        $options[$p] = $_POST["option" . $p];
+        //echo $options[$p];
     }
     $language = $_SESSION['language'];
-    $pageHeading =  $_SESSION['pageHeading'];
+    $pageHeading = $_SESSION['pageHeading'];
     $fileName = $admin->getFileName($language, $pageHeading);
-    $quizset = "quizof".$fileName;
-    $admin->addQuiz($questions,$answers,$options,$fileName,$quizset);
+    $fileName = $fileName . ".php";
+    $quizset = "quizof" . $fileName;
+    $admin->addQuiz($questions, $answers, $options, $fileName, $quizset);
+    unset($_SESSION['language']);
+    unset($_SESSION['$pageHeading']);
+    header("Location:quiz.php");
 }
 ?>
 <!DOCTYPE html>
@@ -72,7 +76,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                 <?php
                                 $optionCounter = 0;
-                                for ($i = 0; $i < 3; $i++) {
+                                for ($i = 0; $i < 5; $i++) {
                                     echo "<p>Question " . ($i + 1) . " </p>";
                                     echo "<p><textarea name='quizQuestion" . $i . "' rows='10' cols='50' required ></textarea></p>";
                                     for ($j = 0; $j < 4; $j++) {

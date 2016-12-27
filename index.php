@@ -15,7 +15,6 @@ function validate_Information($input) {
     $input = htmlspecialchars($input);
     return $input;
 }
-
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     $email = $_POST['email'];
