@@ -3,12 +3,11 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/index.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/user_registration.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/testAction.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/testOnlineEditor.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/test.php</file>
-            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/updatePasswordOfUser.php</file>
+            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/admin/admin.php</file>
+            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/admin/quizAdd.php</file>
+            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/admin/contentSelectionForAddingQuiz.php</file>
+            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/admin/languageSelctionForAddingQuiz.php</file>
+            <file>file:/D:/xampp/htdocs/ProgrammingShikhi/admin/quiz.php</file>
         </group>
     </open-files>
 </project-private>

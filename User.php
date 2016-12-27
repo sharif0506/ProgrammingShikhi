@@ -116,7 +116,7 @@ class User {
         return $userInfo;
     }
 
-        function updateFullName($name, $email) {
+    function updateFullName($name, $email) {
         $connection = $this->getConnection();
         $sql = "UPDATE user SET FullName = '$name' WHERE Email = '$email'";
 
@@ -127,7 +127,7 @@ class User {
         }
         $connection->close();
     }
-    
+
     function updatePassword($password, $email) {
         $connection = $this->getConnection();
         $sql = "UPDATE user SET Password = '$password' WHERE Email = '$email'";
@@ -138,4 +138,24 @@ class User {
         }
         $connection->close();
     }
+
+    function getLastCompletedChapter($email) {
+        $lastChapter = "";
+        $connection = $this->getConnection();
+        $sql = "SELECT LastAccessedContent FROM user WHERE Email = '$email'";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+
+                while ($row = $result->fetch_assoc()) {
+                    $lastChapter = $row["LastAccessedContent"];
+                    break;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $lastChapter;
+    }
+
 }

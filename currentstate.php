@@ -1,4 +1,3 @@
-
 <?php
 require './User.php';
 session_start();
@@ -6,6 +5,9 @@ if (!isset($_SESSION["user"])) {
     header("location:index.php");
 }
 $user = new User();
+$email = $_SESSION["user"];
+$lastCompletedChapter = $user->getLastCompletedChapter($email) ;
+echo $lastCompletedChapter;
 
 ?>
 <!DOCTYPE html>
@@ -53,11 +55,7 @@ $user = new User();
                             <br />
                             <br />
                             <br />
-                            <br />
-                           
-                            
-
-                        </div>
+                            <br />                       </div>
                     </div>
                 </div>
                

@@ -57,7 +57,7 @@ class Admin {
         $pageId = 0;
         $fileName = $fileName . ".php";
         $lastModified = date('d-m-Y');
-      
+
         $sql = "INSERT INTO content VALUES ('','$fileName','$pageHeading','$content', '$language','$lastModified')";
         if ($connection->query($sql) == TRUE) {
             $input = file_get_contents("default_content_layout.php");
@@ -387,8 +387,8 @@ class Admin {
         }
         $connection->close();
     }
-    
-    function deleteContent($pageHeading,$language){
+
+    function deleteContent($pageHeading, $language) {
         $connection = $this->getConnection();
         $sql = "DELETE FROM content WHERE PageHeading='$pageHeading' AND Language='$language'";
         if ($connection->query($sql) == TRUE) {
@@ -397,6 +397,125 @@ class Admin {
             echo "Error: " . $connection->error;
         }
         $connection->close();
-       
     }
+
+    function getPreviousPage($currentPage) {
+        $previousPage = "";
+        $id = $this->getContentID($currentPage);
+        $connection = $this->getConnection();
+        $sql = "SELECT PageName FROM content WHERE id = (SELECT max(id) FROM content WHERE id < '$id') ";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $previousPage = $row["PageName"];
+                    break;
+                }
+            }
+            mysqli_free_result($result);
+        }
+
+        return $previousPage;
+    }
+
+    function getNextPage($currentPage) {
+        $nextPage = "";
+        $id = $this->getContentID($currentPage);
+        $connection = $this->getConnection();
+        $sql = "SELECT PageName FROM content WHERE id = (SELECT min(id) FROM content WHERE id > '$id') ";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                    $nextPage = $row["PageName"];
+                    break;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $nextPage;
+    }
+
+    function updateLastLearning($currentPage, $currentUser) {
+        $connection = $this->getConnection();
+        $sql = "UPDATE user SET  LastAccessedContent='$currentPage' WHERE Email = '$currentUser'";
+        if ($connection->query($sql) == TRUE) {
+            //do nothing
+        } else {
+            echo "Error: " . $connection->error;
+        }
+        $connection->close();
+    }
+
+    function updateLearning($currentPage, $email, $language) {
+        $pageId = $this->getContentID($currentPage);
+        $connection = $this->getConnection();
+        $sql = "INSERT INTO learning VALUES ('',$pageId,'$email','$language')";
+        if ($connection->query($sql) == TRUE) {
+            
+        } else {
+            echo "Error: " . $connection->error;
+        }
+        $connection->close();
+        return $sql;
+    }
+
+    function isCompleteLearning($fileName, $email) {
+        $isCompleteLearning = FALSE;
+        $content_id = $this->getContentID($fileName);
+        $connection = $this->getConnection();
+        $sql = "SELECT * FROM learning WHERE Content_id = '$content_id' ";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $isCompleteLearning = TRUE;
+            }
+            mysqli_free_result($result);
+        }
+        return $isCompleteLearning;
+    }
+
+    function getContentHeadingsToAddQuiz($language) {
+        $pageHeadings;
+        $connection = $this->getConnection();
+        $sql = "SELECT PageHeading FROM content WHERE Language = '$language' AND id NOT IN (SELECT content_id FROM quizquestion)";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $pageHeadings[$i] = $row["PageHeading"];
+                    $i++;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $pageHeadings;
+    }
+
+       
+    
+    function addQuiz($questions, $answers, $options, $fileName ,$quizset) {
+       $contentId = $this->getContentID($fileName);
+        $connection = $this->getConnection();
+        $sql = "INSERT INTO quizset VALUES "
+            . "('','$quizset','$contentId','$questions[0]','$options[0]','$options[1]','$options[2]','$options[3]','$answers[0]'),"
+            . "('','$quizset','$contentId','$questions[1]','$options[4]','$options[5]','$options[6]','$options[7]','$answers[1]'),"
+            . "('','$quizset','$contentId','$questions[2]','$options[8]','$options[9]','$options[10]','$options[11]','$answers[2]'),"
+            . "('','$quizset','$contentId','$questions[3]','$options[12]','$options[13]','$options[14]','$options[15]','$answers[3]'),"
+            . "('','$quizset','$contentId','$questions[4]','$options[16]','$options[17]','$options[18]','$options[19]','$answers[4]')";
+        
+        if ($connection->query($sql) == TRUE) {    
+        } else {
+            echo "Error: " . $connection->error;
+        }
+        $connection->close();
+        return $sql;
+        
+    }
+
 }
