@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $userExist = $user->logIn($email, $password);
         if ($userExist) {
             $_SESSION["user"] = $email;
-            header("Location:homepage.php");
+            header("Location:currentstate.php");
         } else {
             $errorMsg = "Wrong email or password";
         }

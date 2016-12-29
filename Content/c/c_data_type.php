@@ -44,6 +44,7 @@
                             for ($i = 0; $i<sizeof($pageHeadings); $i++){
                                 echo "<li class='menuitem'><a href=".$pageNames[$i].">$pageHeadings[$i]</a></li>";
                             }
+                            echo "<li class='menuitem'><a href='../../run.php'>Code Practice</a></li>";
                             ?>        
                         </ul>
                     </div>

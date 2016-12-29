@@ -1,14 +1,24 @@
 <?php
 require './User.php';
+require 'admin/admin.php';
 session_start();
 if (!isset($_SESSION["user"])) {
     header("location:index.php");
 }
 $user = new User();
+$admin = new Admin();
 $email = $_SESSION["user"];
-$lastCompletedChapter = $user->getLastCompletedChapter($email) ;
-echo $lastCompletedChapter;
-
+$continueFrom = "";
+$lastCompletedChapter = $user->getLastCompletedChapter($email);
+$totalCompletedChapter = 0;
+$totalCompletedChapter = $admin->getUserLearningInfo($email);
+if($totalCompletedChapter==0){
+    $continueFrom = $lastCompletedChapter;
+}
+else{
+    $continueFrom = $admin->getNextPage($lastCompletedChapter);
+}
+//echo $lastCompletedChapter;
 ?>
 <!DOCTYPE html>
 <html>
@@ -21,8 +31,8 @@ echo $lastCompletedChapter;
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
-                    <div class="header">
-                        <h1>প্রোগ্রামিং শিখি</h1>
+                    <div class="header" align="center">
+                        <h2>প্রোগ্রামিং শিখি</h2>
                         <h3>Current status of learning </h3>
                     </div>
                 </div>
@@ -37,15 +47,15 @@ echo $lastCompletedChapter;
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>প্রোগ্রামিংশিখি তে স্বাগতম  </h1>
+                            <h2>প্রোগ্রামিংশিখি তে স্বাগতম  </h2>
                             <br />
+
+                            <b>This is your progress</b>
+                            <p>Programming Language: C</p>   
+                            <p>Total Completed Chapter:<?php echo $totalCompletedChapter?></p>
                             
-                            <p>This is your progress:</p>
-                            <p>Programming Language: </p>   
-                            <p>Completed Chapter:</p>
-                            <a href="#" >Continue after last completed chapter</a>
+                            <a href="<?php echo $continueFrom?>" >Continue after last completed chapter</a>
                             <?php
-                            
                             ?>
 
                             <br />
@@ -55,10 +65,11 @@ echo $lastCompletedChapter;
                             <br />
                             <br />
                             <br />
-                            <br />                       </div>
+                            <br /> 
+                        </div>
                     </div>
                 </div>
-               
+
                 <div class="gridbox gridfooter">
                     <div class="footer">
                         <p>This website is developed by Sharif</p>

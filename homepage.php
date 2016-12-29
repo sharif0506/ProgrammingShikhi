@@ -18,7 +18,7 @@ $languages = $user->getAllLanguage();
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
-                    <div class="header">
+                    <div class="header" align="center">
                         <h1>প্রোগ্রামিং শিখি</h1>
                         <h3>হোম পেজ </h3>
                     </div>
@@ -34,7 +34,7 @@ $languages = $user->getAllLanguage();
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>প্রোগ্রামিংশিখি তে স্বাগতম  </h1>
+                            <h2>প্রোগ্রামিংশিখি তে স্বাগতম  </h2>
                             <br />
                             <?php
                             for ($i = 0; $i < sizeof($languages); $i++) {

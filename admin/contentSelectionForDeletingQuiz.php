@@ -1,50 +1,26 @@
 <?php
-require './admin.php';
-$admin = new Admin();
 session_start();
-
-$errorMsg = "";
-$fileName = "";
-$pageHeading = "";
-$id = 0;
-
+require './admin.php';
 if (!isset($_SESSION["admin"])) {
-     header("location:index.php");
+    header("location:index.php");
 }
-if (!isset($_SESSION['language'])) {
-     header("location:languageSelectionForUpdate.php");
+if (!isset($_POST['language'])) {
+    header("location:languageSelectionForDeletingQuiz.php");
 }
-if (!isset($_GET['pageHeading'])) {
-    header("location:languageSelectionForUpdate.php");
-} else {
-    $pageHeading = $_GET['pageHeading'];
-}
-
-
-$language = $_SESSION['language'];
-$fileName = $admin->getFileName($language, $pageHeading);
-$id = $admin->getContentID($fileName . ".php");
-$_SESSION['id'] = $id;
-$content = $admin->getContent($fileName . ".php");
-
+$_SESSION['language'] = $_POST['language'];
+$language = $_POST['language'];
+$admin = new Admin();
+$pageHeadings = $admin->getContentHeadingsToEditQuiz($language);
 ?>
 <!DOCTYPE html>
 <html>
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
-        <script src="//cdn.tinymce.com/4/tinymce.min.js"></script>
-        <script>
-            tinymce.init({
-                selector: 'textarea'
-            }
-            );
-        </script>
         <title>অ্যাডমিন প্যানেল</title>
-
     </head>
-    <body>
 
+    <body> 
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
@@ -61,32 +37,33 @@ $content = $admin->getContent($fileName . ".php");
                     </div>
                     <div class="menuitem">     
                         <ul>
-                            <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
+                           <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
                             <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
                             <li class="menuitem"><a  href="quiz.php">কুইজ প্রশ্নোত্তর</a></li>
                         </ul>
                     </div>
-
                 </div>
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>Edit Content</h1>
-                            <!--<form method="post" action="<?php //echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">-->
-
-                            <form method="post" action="testResult.php">
-                                <input type="text" name="newPageHeading" placeholder="page heading" value="<?php echo $pageHeading; ?>" required />
-                                <p>
+                            <h2>Select content for deleting quiz</h2>
+                            <form method="GET" action="quizDelete.php">
+                                <p> <select name='pageHeading' style="width: 64%; height: 40px; font-size: 18px; text-align: center">
+                                        <?php
+                                        for ($i = 0; $i < sizeof($pageHeadings); $i++) {
+                                            echo "<option  value='$pageHeadings[$i]'>$pageHeadings[$i]</option>";
+                                        }
+                                        ?>
+                                    </select>
                                 </p>
-                                <textarea name="textarea" rows="20" ><?php echo $content; ?></textarea>
-                                <input type="submit" class="loginButton" value="সাবমিট">
-                            </form> 
+                                <input class="loginButton" type="submit" value="Submit" />
+                            </form>
                         </div>
                     </div>
                 </div>
-                
+
                 <div class="gridbox gridfooter">
                     <div class="footer">
                         <p>This website is developed by Sharif</p>

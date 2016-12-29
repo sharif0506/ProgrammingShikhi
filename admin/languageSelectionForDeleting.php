@@ -35,8 +35,9 @@
                         <ul>
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
-                            <li class="menuitem"><a  href="editContent.php">কন্টেন্ট আপডেট</a></li>
-                            <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>                   
+                            <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
+                            <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
+                            <li class="menuitem"><a  href="quiz.php">কুইজ প্রশ্নোত্তর</a></li>                   
                             
                         </ul>
                     </div>
@@ -61,9 +62,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="gridbox gridright">
-                    Advertisement
-                </div>
+                
                 <div class="gridbox gridfooter">
                     <div class="footer">
                         <p>This website is developed by Sharif</p>

@@ -19,7 +19,7 @@ $userInfo = $user->getUserInfo($email);
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
-                    <div class="header">
+                    <div class="header" align="center">
                         <h1>প্রোগ্রামিং শিখি</h1>
                         <h3>ইউজার প্রোফাইল</h3>
                     </div>
@@ -35,7 +35,7 @@ $userInfo = $user->getUserInfo($email);
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>ইউজার প্রোফাইল</h1>
+                            <h2>ইউজার প্রোফাইল</h2>
                             <p>ইউজার নেম: <?php echo "$userInfo[0]"; ?></p>
                             <p>ফুলনেম:<?php echo "$userInfo[1]"; ?></p>
                             <p>ই মেইল:<?php echo "$userInfo[2]"; ?></p>
@@ -45,9 +45,7 @@ $userInfo = $user->getUserInfo($email);
                         </div>
                     </div>
                 </div>
-                <div class="gridbox gridright">
-                    Advertisement
-                </div>
+                
                 <div class="gridbox gridfooter">
                     <div class="footer">
                         <p>This website is developed by Sharif</p>

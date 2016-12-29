@@ -4,8 +4,29 @@ require './admin.php';
 if (!isset($_SESSION["admin"])) {
     header("location:index.php");
 }
-
+if (!isset($_SESSION['language'])) {
+    header("Location:contentSelectionForDeletingQuiz.php");
+}
+if ($_SERVER["REQUEST_METHOD"] == "GET") {
+    $_SESSION['pageHeading'] = $_GET['pageHeading'];
+}
 $admin = new Admin();
+$language = $_SESSION['language'];
+$pageHeading = $_SESSION['pageHeading'];
+$fileName = $admin->getFileName($language, $pageHeading);
+$fileName = $fileName . ".php";
+$content_id = $admin->getContentID($fileName);
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $language = $_SESSION['language'];
+    $pageHeading = $_SESSION['pageHeading'];
+    $fileName = $admin->getFileName($language, $pageHeading);
+    $fileName = $fileName . ".php";
+    $content_id = $admin->getContentID($fileName);
+    $admin->deleteQuiz($content_id);
+    unset($_SESSION['language']);
+    unset($_SESSION['$pageHeading']);
+    header("Location:quiz.php");
+}
 ?>
 <!DOCTYPE html>
 <html>
@@ -13,7 +34,7 @@ $admin = new Admin();
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
         <title>অ্যাডমিন প্যানেল</title>
-      
+
     </head>
 
     <body> 
@@ -37,6 +58,7 @@ $admin = new Admin();
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
                             <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
+                            <li class="menuitem"><a  href="quiz.php">কুইজ প্রশ্নোত্তর</a></li>
 
                         </ul>
                     </div>
@@ -45,8 +67,15 @@ $admin = new Admin();
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>Quiz</h1>
-                                                   </div>
+                            <h1>Delete Content</h1>
+                            <p>
+                                The  quiz of <?php echo $pageHeading ?> chapter will be deleted. 
+                                Do you want to continue?
+                            </p>
+                            <form method="POST" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
+                                <input class="loginButton" type="submit" value="Confirm" />
+                            </form>
+                        </div>
                     </div>
                 </div>
 

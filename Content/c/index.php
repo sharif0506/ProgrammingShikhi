@@ -11,16 +11,18 @@ $fileName = basename($_SERVER['PHP_SELF']);
 $thisPageHeading = $admin->getPageHeading($fileName);
 $content = $admin->getContent($fileName);
 $language = basename(dirname($_SERVER['PHP_SELF']));
+$_SESSION['language'] = $language;
 $pageHeadings = $admin->getAllPageHeading($language);
 $pageNames = $admin->getAllPageName($language);
 $previousPage = $admin->getPreviousPage($fileName);
 $nextPage = $admin->getNextPage($fileName);
 $isComplete = $admin->isCompleteLearning($fileName, $email);
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $admin->updateLastLearning($fileName, $email);
-    $admin->updateLearning($fileName, $email, $language);
-    header("Location:$nextPage");
-}
+$quizset = "quizof".$fileName;
+//if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//    $admin->updateLastLearning($fileName, $email);
+//    $admin->updateLearning($fileName, $email, $language);
+//    header("Location:$nextPage");
+//}
 ?>
 <!DOCTYPE html>
 <html>
@@ -95,17 +97,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             echo "<a href=" . "$previousPage" . "><button class='buttonPrev' style='vertical-align:middle'><span>Previous</span></button> </a>";
                         }
                         ?>      
-                        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" style="display: inline">
+                        <!--<form action="<?php// echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="POST" style="display: inline">-->
                            
                             <?php 
                             if ($isComplete==TRUE){
                                 echo '<input class="buttonDone" type="submit" value="Completed" disabled />';
                             }  else {
-                                echo '<input class="buttonDone" type="submit" value="Mark As Completed" />';    
+                                //echo '<input class="buttonDone" type="submit" value="Mark As Completed" />'; 
+                                echo "<a href='quiz/".$quizset."' ><button class='buttonDone'>Mark As Complete</button></a>";
                             }   
                             ?>
-                           
-                        </form>
+                            
+                        <!--</form>-->
                         
 
                         <?php

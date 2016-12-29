@@ -40,6 +40,7 @@
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
                             <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
+                            <li class="menuitem"><a  href="quiz.php">কুইজ প্রশ্নোত্তর</a></li>
         
                         </ul>
                     </div>

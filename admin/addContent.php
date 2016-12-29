@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
-                    <div class="header">
+                    <div class="header" >
                         <h1>প্রোগ্রামিং শিখি</h1>
                         <h3>অ্যাডমিন প্যানেল </h3>
                     </div>
@@ -60,6 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
                             <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
+                            <li class="menuitem"><a  href="quiz.php">কুইজ প্রশ্নোত্তর</a></li>
 
                         </ul>
                     </div>
@@ -89,9 +90,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </div>
                     </div>
                 </div>
-                <div class="gridbox gridright">
-                    Advertisement
-                </div>
+                
                 <div class="gridbox gridfooter">
                     <div class="footer">
                         <p>This website is developed by Sharif</p>

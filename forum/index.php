@@ -30,7 +30,7 @@ $questionAsker = $forum->getAllQuestionAsker();
         <div class="gridcontainer">
             <div class="gridwrapper">
                 <div class="gridbox gridheader">
-                    <div class="header">
+                    <div class="header" align="center">
                         <h1>প্রোগ্রামিং শিখি</h1>
                         <h3>ফোরাম</h3>
                     </div>
@@ -51,7 +51,7 @@ $questionAsker = $forum->getAllQuestionAsker();
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>ফোরাম</h1>
+                            <h2>সমস্যা এবং সমাধান আলোচনা</h2>
                             <?php
                             for ($i = 0; $i < sizeof($questions); $i++) {
                                 echo "<a href='default_question_layout.php?question=$questions[$i]&asker=$questionAsker[$i]&date=$questionDate[$i]'style='text-align:left'>"

@@ -4,7 +4,7 @@ require './admin.php';
 if (!isset($_SESSION["admin"])) {
     header("location:index.php");
 }
-if (!isset($_SESSION['pageHeading'])) {
+if (!isset($_SESSION['language'])) {
     header("Location:contentSelectionForAddingQuiz.php");
 }
 $admin = new Admin();
@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $fileName = $admin->getFileName($language, $pageHeading);
     $fileName = $fileName . ".php";
     $quizset = "quizof" . $fileName;
-    $admin->addQuiz($questions, $answers, $options, $fileName, $quizset);
+    $admin->addQuiz($questions, $answers, $options, $fileName, $quizset,$language);
     unset($_SESSION['language']);
     unset($_SESSION['$pageHeading']);
     header("Location:quiz.php");
@@ -62,17 +62,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                     <div class="menuitem">     
                         <ul>
-                            <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
+                           <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
                             <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
+                            <li class="menuitem"><a  href="quiz.php">কুইজ প্রশ্নোত্তর</a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>Quiz</h1>
+                            <h3>Quiz Adding</h3>
                             <form method="post" action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>">
                                 <?php
                                 $optionCounter = 0;

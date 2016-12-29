@@ -7,13 +7,10 @@ if (!isset($_SESSION["admin"])) {
 }
 if (isset($_GET['pageHeading'])) {
     $pageHeading = $_GET['pageHeading'];
-   
 }
 $_SESSION['pageHeading'] = $pageHeading;
 $language = $_SESSION['language'];
-
 ?>
-
 <!DOCTYPE html>
 <html>
     <head>
@@ -42,7 +39,8 @@ $language = $_SESSION['language'];
                             <li class="menuitem"><a href="newTutorialAdd.php">নতুন প্রোগ্রামিং ল্যাঙ্গুয়েজ সংযোজন</a></li>
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
-                            <li class="menuitem"><a  href="languageSelectionForDeleting.php">ডিলিট কন্টেন্ট</a></li>
+                            <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
+                            <li class="menuitem"><a  href="quiz.php">কুইজ প্রশ্নোত্তর</a></li>
 
                         </ul>
                     </div>
@@ -62,9 +60,7 @@ $language = $_SESSION['language'];
                         </div>
                     </div>
                 </div>
-                <div class="gridbox gridright">
-                    Advertisement
-                </div>
+                
                 <div class="gridbox gridfooter">
                     <div class="footer">
                         <p>This website is developed by Sharif</p>

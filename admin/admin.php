@@ -32,20 +32,24 @@ class Admin {
     }
 
     function createNewTutorial($newTutorialLanguage) {
-        $path = "../content";
+        $path = "../Content";
         $source = "default_content_layout.css";
         $connection = $this->getConnection();
         $sql = "INSERT INTO tutorial VALUES ('','$newTutorialLanguage')";
         if ($connection->query($sql) == TRUE) {
             $directory = $newTutorialLanguage;
             mkdir("$path/" . $newTutorialLanguage);
+            mkdir("$path/" . $newTutorialLanguage."/quiz");
             $path = $path . "/" . $directory;
-
             $fileName = "default_content_layout.css";
             $input = file_get_contents($fileName);
             $openedFile = fopen("../content/$directory/$fileName", 'w');
             fwrite($openedFile, $input);
             fclose($openedFile);
+            $openedFile = fopen("../content/$directory/quiz/$fileName", 'w');
+            fwrite($openedFile, $input);
+            fclose($openedFile);
+            
         } else {
             echo "Error: " . $connection->error;
         }
@@ -61,7 +65,7 @@ class Admin {
         $sql = "INSERT INTO content VALUES ('','$fileName','$pageHeading','$content', '$language','$lastModified')";
         if ($connection->query($sql) == TRUE) {
             $input = file_get_contents("default_content_layout.php");
-            $openedFile = fopen("../content/$language/$fileName", 'w');
+            $openedFile = fopen("../Content/$language/$fileName", 'w');
             fwrite($openedFile, $input);
             fclose($openedFile);
         } else {
@@ -462,6 +466,25 @@ class Admin {
         return $sql;
     }
 
+    function getUserLearningInfo($email){
+        $totalCompletedChapter = 0;
+        $connection = $this->getConnection();
+        $sql = "SELECT * FROM learning WHERE UserEmail = '$email' ";
+        $x = $connection->query($sql);
+       
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                while ($row = $result->fetch_assoc()) {
+                   $totalCompletedChapter ++;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        $connection->close();
+        return $totalCompletedChapter;
+    }
+    
     function isCompleteLearning($fileName, $email) {
         $isCompleteLearning = FALSE;
         $content_id = $this->getContentID($fileName);
@@ -497,29 +520,30 @@ class Admin {
         return $pageHeadings;
     }
 
-       
-    
-    function addQuiz($questions, $answers, $options, $fileName ,$quizset) {
-       $contentId = $this->getContentID($fileName);
+    function addQuiz($questions, $answers, $options, $fileName, $quizset,$language) {
+        $contentId = $this->getContentID($fileName);
         $connection = $this->getConnection();
         $sql = "INSERT INTO quizquestion VALUES "
-            . "('','$quizset','$contentId','$questions[0]','$options[0]','$options[1]','$options[2]','$options[3]','$answers[0]'),"
-            . "('','$quizset','$contentId','$questions[1]','$options[4]','$options[5]','$options[6]','$options[7]','$answers[1]'),"
-            . "('','$quizset','$contentId','$questions[2]','$options[8]','$options[9]','$options[10]','$options[11]','$answers[2]'),"
-            . "('','$quizset','$contentId','$questions[3]','$options[12]','$options[13]','$options[14]','$options[15]','$answers[3]'),"
-            . "('','$quizset','$contentId','$questions[4]','$options[16]','$options[17]','$options[18]','$options[19]','$answers[4]')";
-        
-        if ($connection->query($sql) == TRUE) {    
+                . "('','$quizset','$contentId','$questions[0]','$options[0]','$options[1]','$options[2]','$options[3]','$answers[0]'),"
+                . "('','$quizset','$contentId','$questions[1]','$options[4]','$options[5]','$options[6]','$options[7]','$answers[1]'),"
+                . "('','$quizset','$contentId','$questions[2]','$options[8]','$options[9]','$options[10]','$options[11]','$answers[2]'),"
+                . "('','$quizset','$contentId','$questions[3]','$options[12]','$options[13]','$options[14]','$options[15]','$answers[3]'),"
+                . "('','$quizset','$contentId','$questions[4]','$options[16]','$options[17]','$options[18]','$options[19]','$answers[4]')";
+
+        if ($connection->query($sql) == TRUE) {
+            $input = file_get_contents("default_quiz_layout.php");
+            $openedFile = fopen("../Content/".$language."/quiz/$quizset", 'w');
+            fwrite($openedFile, $input);
+            fclose($openedFile);
         } else {
             echo "Error: " . $connection->error;
         }
         $connection->close();
         return $sql;
-        
     }
-    
+
     function getContentHeadingsToEditQuiz($language) {
-        $pageHeadings;
+        $pageHeadings = array();
         $connection = $this->getConnection();
         $sql = "SELECT PageHeading FROM content WHERE Language = '$language' AND id IN (SELECT content_id FROM quizquestion)";
         $x = $connection->query($sql);
@@ -537,7 +561,7 @@ class Admin {
         return $pageHeadings;
     }
 
-    function  getQuizQuestions($contentId){
+    function getQuizQuestions($contentId) {
         $questionInfo = array();
         $connection = $this->getConnection();
         $sql = "SELECT * FROM quizquestion WHERE content_id = '$contentId' ";
@@ -546,15 +570,89 @@ class Admin {
             $numberOfRows = mysqli_num_rows($result);
             if ($numberOfRows > 0) {
                 $i = 0;
-                
                 while ($row = $result->fetch_assoc()) {
-                    $pageHeadings[$i] = $row["PageHeading"];
+                    $questionInfo[$i][0] = $row["question"];
+                    $questionInfo[$i][1] = $row["option_one"];
+                    $questionInfo[$i][2] = $row["option_two"];
+                    $questionInfo[$i][3] = $row["option_three"];
+                    $questionInfo[$i][4] = $row["option_four"];
+                    $questionInfo[$i][5] = $row["answer"];
                     $i++;
                 }
             }
             mysqli_free_result($result);
         }
-        return $numberOfRows;
+        return $questionInfo;
+    }
+
+    function getQuizQuestionIDs($content_id) {
+        $ids = array();
+        $connection = $this->getConnection();
+        $sql = "SELECT id FROM quizquestion WHERE content_id = '$content_id'";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $ids[$i] = $row["id"];
+                    $i++;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        $connection->close();
+        return $ids;
+    }
+
+    function editQuiz($quizinfo, $content_id) {
+        $ids = array();
+        $ids = $this->getQuizQuestionIDs($content_id);
+        $connection = $this->getConnection();
+        for ($i = 0; $i < sizeof($ids); $i++) {
+            $sql = "UPDATE quizquestion  SET question='".$quizinfo[$i][0]."', option_one='".$quizinfo[$i][1]."',option_two='".$quizinfo[$i][2]."', option_three='".$quizinfo[$i][3]."', option_four = '".$quizinfo[$i][4]."', answer = '".$quizinfo[$i][5]."' "
+                    . "WHERE id = '$ids[$i]'";
+            if ($connection->query($sql) == TRUE) {
+                //do nothing
+            } else {
+                echo "Error: " . $connection->error;
+            }
+        }
+        $connection->close();
     }
     
+    function deleteQuiz($content_id){
+        $connection = $this->getConnection();
+        $sql = "DELETE FROM quizquestion WHERE content_id='$content_id'";
+        if ($connection->query($sql) == TRUE) {
+            //delete file
+        } else {
+            echo "Error: " . $connection->error;
+        }
+        $connection->close();
+    }
+    
+    function getQuiz($quizset) {
+        $questionInfo = array();
+        $connection = $this->getConnection();
+        $sql = "SELECT * FROM quizquestion WHERE quiz_set = '$quizset' ";
+        $x = $connection->query($sql);
+        if ($result = $x) {
+            $numberOfRows = mysqli_num_rows($result);
+            if ($numberOfRows > 0) {
+                $i = 0;
+                while ($row = $result->fetch_assoc()) {
+                    $questionInfo[$i][0] = $row["question"];
+                    $questionInfo[$i][1] = $row["option_one"];
+                    $questionInfo[$i][2] = $row["option_two"];
+                    $questionInfo[$i][3] = $row["option_three"];
+                    $questionInfo[$i][4] = $row["option_four"];
+                    $questionInfo[$i][5] = $row["answer"];
+                    $i++;
+                }
+            }
+            mysqli_free_result($result);
+        }
+        return $questionInfo;
+    }
 }

@@ -12,7 +12,7 @@ $admin = new Admin();
     <head>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         <link href="adminPanel.css" type="text/css" rel="stylesheet" />
-        <title>অ্যাডমিন প্যানেল</title>
+        <title>কুইজ প্রশ্নোত্তর</title>
         <style>
             .buttonNext {
                 display: inline-block;
@@ -62,7 +62,7 @@ $admin = new Admin();
                 <div class="gridbox gridheader">
                     <div class="header">
                         <h1>প্রোগ্রামিং শিখি</h1>
-                        <h3>Quiz</h3>
+                        <h3>অ্যাডমিন প্যানেল</h3>
                     </div>
                 </div>
                 <div class="gridbox gridmenu">
@@ -77,6 +77,7 @@ $admin = new Admin();
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
                             <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
+                            <li class="menuitem"><a  href="quiz.php">কুইজ প্রশ্নোত্তর</a></li>
 
                         </ul>
                     </div>
@@ -85,14 +86,14 @@ $admin = new Admin();
                 <div class="gridbox gridmain">
                     <div class="main">
                         <div class="login">
-                            <h1>Quiz</h1>
+                            <h1>কুইজ প্রশ্নোত্তর</h1>
                             <a href="languageSelctionForAddingQuiz.php" ><button class='buttonNext' style='vertical-align:middle'><span>Quiz Add</span></button> </a>
                             <br />
                             <br />
                             <a href="languageSelectionForEditingQuiz.php" ><button class='buttonNext' style='vertical-align:middle'><span>Quiz Edit</span></button> </a>
                             <br />
                             <br />
-                            <a href="quizDelete.php" ><button class='buttonNext' style='vertical-align:middle'><span>Quiz Delete</span></button> </a>
+                            <a href="languageSelectionForDeletingQuiz.php" ><button class='buttonNext' style='vertical-align:middle'><span>Quiz Delete</span></button> </a>
                         </div>
                     </div>
                 </div>

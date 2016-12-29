@@ -4,7 +4,7 @@ require './admin.php';
 if (!isset($_SESSION["admin"])) {
     header("location:index.php");
 }
-if (!isset($_SESSION['pageHeading'])) {
+if (!isset($_SESSION['language'])) {
     header("Location:contentSelectionForAddingQuiz.php");
 }
 $admin = new Admin();
@@ -17,11 +17,31 @@ $language = $_SESSION['language'];
 $pageHeading = $_SESSION['pageHeading'];
 $fileName = $admin->getFileName($language, $pageHeading);
 $fileName = $fileName . ".php";
+
 $content_id = $admin->getContentID($fileName);
+$quizInfo = array();
+$quizInfo = $admin->getQuizQuestions($content_id);
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    
-    
+    $quizInfo = array();
+    for ($i = 0; $i < 5; $i++) {
+        $quizInfo[$i][0] = $_POST["quizQuestion".$i];
+        echo $quizInfo[$i][0];
+        for($j = 0; $j < 4; $j++){
+            $quizInfo[$i][$j+1] = $_POST["question".$i."option".$j];
+        }
+        $quizInfo[$i][5] = $_POST["answerOfQuizQuestion".$i];
+    } 
+    $language = $_SESSION['language'];
+    $pageHeading = $_SESSION['pageHeading'];
+    $fileName = $admin->getFileName($language, $pageHeading);
+    $fileName = $fileName . ".php";
+    $quizset = "quizof" . $fileName;
+    $content_id = $admin->getContentID($fileName);
+    $admin->editQuiz($quizInfo, $content_id);
+    unset($_SESSION['language']);
+    unset($_SESSION['$pageHeading']);
+    header("Location:quiz.php");
 }
 ?>
 <!DOCTYPE html>
@@ -52,6 +72,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             <li class="menuitem"><a  href="addContent.php">নতুন কন্টেন্ট সংযোজন</a></li>
                             <li class="menuitem"><a  href="languageSelectionForUpdate.php">কন্টেন্ট আপডেট</a></li>
                             <li class="menuitem"><a  href="languageSelectionForDeleting.php">কন্টেন্ট ডিলিট</a></li>
+                            <li class="menuitem"><a  href="quiz.php">কুইজ প্রশ্নোত্তর</a></li>
                         </ul>
                     </div>
                 </div>
@@ -64,12 +85,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                                 $optionCounter = 0;
                                 for ($i = 0; $i < 5; $i++) {
                                     echo "<p>Question " . ($i + 1) . " </p>";
-                                    echo "<p><textarea name='quizQuestion" . $i . "' rows='10' cols='50' required ></textarea></p>";
+                                    echo "<p><textarea name='quizQuestion".$i."' rows='10' cols='50' required >";
+                                    echo $quizInfo[$i][0];
+                                    echo "</textarea></p>";
                                     for ($j = 0; $j < 4; $j++) {
-                                        echo" <input type='text' name='option" . $optionCounter . "' placeholder='option " . ($j + 1) . "' required /><br />";
+
+                                        echo " <input type='text' name='question" . $i . "option".$j."' placeholder='option " . ($j + 1) . "' value='";
+                                        echo $quizInfo[$i][$j + 1];
+                                        echo "' required /><br />";
                                         $optionCounter++;
                                     }
-                                    echo "<input type='text' name='answerOfQuizQuestion" . $i . "' placeholder='Correct Answer' required /><br />";
+                                    echo "<input type='text' name='answerOfQuizQuestion" . $i . "' placeholder='Correct Answer' value='";
+                                    echo $quizInfo[$i][5];
+                                    echo "' required /><br />";
                                 }
                                 ?>
                                 <input type="submit" class="loginButton" value="সাবমিট">
